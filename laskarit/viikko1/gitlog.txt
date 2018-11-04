@@ -1,0 +1,115 @@
+commit 926ca647176b93f3f59ee13fef48189e10d2db7d
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 23:01:02 2018 +0200
+
+    tiedosto file1 poistettu, tiedosto file2 uudelleennimetty file22
+
+ tiedostoja/file1  | 0
+ tiedostoja/file2  | 0
+ tiedostoja/file22 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit c403cfd60b0dc7d525db27e58b1e688978e0d82a
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:57:30 2018 +0200
+
+    hakemisto tiedostoja luotu
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 032b7cb68db06f9bc4c56b5205f4572406506901
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:55:19 2018 +0200
+
+    tekstitiedostoissa muutoksia
+
+ eka.txt    | 10 ++++------
+ kolmas.txt |  5 ++++-
+ 2 files changed, 8 insertions(+), 7 deletions(-)
+
+commit ca779d867056bb63d7d53113bbf93b69ddf1f4da
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:50:04 2018 +0200
+
+    tiedosto.txt uudelleennimetty eka.txt
+
+ eka.txt      | 1650 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ tiedosto.txt | 1650 ----------------------------------------------------------
+ 2 files changed, 1650 insertions(+), 1650 deletions(-)
+
+commit ec64a6f860c81ba194ee83a888307f51b2a08e1b
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:45:38 2018 +0200
+
+    toinen.txt poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit dd97e0ec6d370f559185769987d3d3440b38a9df
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:44:22 2018 +0200
+
+    tiedosto.txt teksti‰ poistettu ja lis‰tty
+
+ tiedosto.txt | 167 +++--------------------------------------------------------
+ 1 file changed, 8 insertions(+), 159 deletions(-)
+
+commit 3d35f2040e703d0e82ac00fe4ef34e0c1678f993
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:42:11 2018 +0200
+
+    tiedosto.txt muokattu lis‰‰m‰ll‰ teksti‰
+
+ tiedosto.txt | 1802 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 1801 insertions(+), 1 deletion(-)
+
+commit 97999e2767a7ef23daeb18181b2794f77fb7aca3
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:08:14 2018 +0200
+
+    hakemisto stuff luotu
+
+ stuff/tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 8149c848e5ab8f09de6478973f3d313cbe66a0d4
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:06:18 2018 +0200
+
+    tekstitiedostoja muokattu
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit d3ba87e98ee87ba3fe5688f657e6163bc2cd3180
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:04:19 2018 +0200
+
+    kolmas.txt lis‰tty
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit c79e0cbbf4716d12bb4470ff330ee9de9d13d5f0
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 22:01:10 2018 +0200
+
+    muutos ja lis‰ys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 341f9abaf5ae0959177806f3a22ba8141fd9e898
+Author: V‰h‰kangas Pyry K <pypypypy@melkki.cs.helsinki.fi>
+Date:   Sat Nov 3 21:58:15 2018 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
