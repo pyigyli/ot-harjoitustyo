@@ -1,4 +1,4 @@
-# Ohjelmistotekniikka, harjoitustyö
+# Ohjelmistotekniikka, Syksy 2018
 Kurssin *Ohjelmistotekniikka, 2018* edetessä lisään tänne tekemieni harjoitustehtävien vastauksia.
 
 ## Tehtävät
