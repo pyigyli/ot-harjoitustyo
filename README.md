@@ -9,4 +9,4 @@ Kurssin *Ohjelmistotekniikka, 2018* edetessä lisään tänne tekemieni harjoitu
 
 ### Viikko 2
 * [Testikattavuus.png](https://github.com/pyigyli/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
-* [Harjoitustyön alustava määrittelydokumentti](https://github.com/mluukkai/Ohjelmistotekniikka2018/blob/master/tehtavat/harjoitustyo_viikko2.md)
+* [Harjoitustyön alustava määrittelydokumentti](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/vaatimusmaarittelu.md)
