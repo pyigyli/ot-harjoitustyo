@@ -6,3 +6,6 @@ Kurssin *Ohjelmistotekniikka, 2018* edetessä lisään tänne tekemieni harjoitu
 ### Viikko 1
 * [Komentorivi.txt](https://github.com/pyigyli/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 * [Gitlog.txt](https://github.com/pyigyli/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+
+### Viikko 2
+* [Testikattavuus.png](https://github.com/pyigyli/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
