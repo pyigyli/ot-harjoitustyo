@@ -3,10 +3,12 @@ package ohjelmistotekniikka.application;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -50,7 +52,7 @@ public class App extends Application {
         Button buttonScores = new Button("Scores");
         HBox menu = new HBox();
         menu.getChildren().addAll(buttonNewGame, buttonSettings, buttonRules, buttonScores);
-        menu.setPadding(new Insets(20, 20, 20, 20));
+        menu.setPadding(new Insets(50, 0, 0, 0));
         menu.setSpacing(20);
         menu.setAlignment(Pos.CENTER);
     
@@ -84,7 +86,7 @@ public class App extends Application {
         gameplayButtons.setMaxWidth(300);
         gameplayButtons.setAlignment(Pos.CENTER);
         
-        // Initial application opening scene
+        // Application opening scene
         BorderPane welcomeScreen = new BorderPane();
         welcomeScreen.setTop(menu);
         Label welcomeLabel = new Label("Welcome to Connect Four 3D!");
@@ -92,15 +94,13 @@ public class App extends Application {
         welcomeScreen.setCenter(welcomeLabel);
         Scene welcomeScene = new Scene(welcomeScreen, screenWidth, screenHeight);
         
-        // Initialize gameplay scene
+        // Gameplay scene
         BorderPane gameplayBorderpane = new BorderPane();
         gameplayBorderpane.setRight(gameplayButtons);
         Scene gameplayView = new Scene(gameplayBorderpane, screenWidth, screenHeight);
         
-        // Initialize settings scene
-        GridPane setPlayerNames = new GridPane();
-        setPlayerNames.setVgap(10);
-        setPlayerNames.setHgap(10);
+        // Settings scene
+        BorderPane settingsBorderpane = new BorderPane();
         Label player1NameText1 = new Label("Player 1:");
         Label player2NameText1 = new Label("Player 2:");
         Label player3NameText1 = new Label("Player 3:");
@@ -133,6 +133,9 @@ public class App extends Application {
         Button player2setNameButton = new Button("Set name");
         Button player3setNameButton = new Button("Set name");
         Button player4setNameButton = new Button("Set name");
+        GridPane setPlayerNames = new GridPane();
+        setPlayerNames.setVgap(10);
+        setPlayerNames.setHgap(10);
         setPlayerNames.add(player1NameText1, 0, 0);
         setPlayerNames.add(player2NameText1, 0, 2);
         setPlayerNames.add(player3NameText1, 0, 4);
@@ -149,11 +152,93 @@ public class App extends Application {
         setPlayerNames.add(player2setNameButton, 1, 3);
         setPlayerNames.add(player3setNameButton, 1, 5);
         setPlayerNames.add(player4setNameButton, 1, 7);
-        setPlayerNames.setPadding(new Insets(50, 50, 50, 50));
-        
+        setPlayerNames.setPadding(new Insets(0, 0, 0, 35));
+        BorderPane playerNameChangeSection = new BorderPane();
         Label changeNamesText = new Label("Change player names");
+        changeNamesText.setFont(new Font("Arial", 30));
+        playerNameChangeSection.setTop(changeNamesText);
+        playerNameChangeSection.setCenter(setPlayerNames);
+        playerNameChangeSection.setPadding(new Insets(100, 0, 0, 150));
+        settingsBorderpane.setLeft(playerNameChangeSection);
         
-        Scene settingsView = new Scene(setPlayerNames, screenWidth, screenHeight);
+        Label changeLengthText = new Label("Length:");
+        Label changeWidthText = new Label("Width:");
+        Label changeHeigthText = new Label("Height:");
+        changeLengthText.setFont(new Font("Arial", 20));
+        changeWidthText.setFont(new Font("Arial", 20));
+        changeHeigthText.setFont(new Font("Arial", 20));
+        changeLengthText.setPadding(new Insets(0, 0, 17, 0));
+        changeWidthText.setPadding(new Insets(0, 0, 17, 0));
+        changeHeigthText.setPadding(new Insets(0, 0, 17, 0));
+        Slider changeLengthSlider = new Slider();
+        changeLengthSlider.setValue(length);
+        changeLengthSlider.setMin(4);
+        changeLengthSlider.setMax(10);
+        changeLengthSlider.setMajorTickUnit(1);
+        changeLengthSlider.setMinorTickCount(0);
+        changeLengthSlider.setSnapToTicks(true);
+        changeLengthSlider.setShowTickMarks(true);
+        changeLengthSlider.setShowTickLabels(true);
+        changeLengthSlider.setMinWidth(270);
+        changeLengthSlider.setMaxWidth(270);
+        Slider changeWidthSlider = new Slider();
+        changeWidthSlider.setValue(width);
+        changeWidthSlider.setMin(4);
+        changeWidthSlider.setMax(10);
+        changeWidthSlider.setMajorTickUnit(1);
+        changeWidthSlider.setMinorTickCount(0);
+        changeWidthSlider.setSnapToTicks(true);
+        changeWidthSlider.setShowTickMarks(true);
+        changeWidthSlider.setShowTickLabels(true);
+        changeWidthSlider.setMinWidth(270);
+        changeWidthSlider.setMaxWidth(270);
+        Slider changeHeightSlider = new Slider();
+        changeHeightSlider.setValue(height);
+        changeHeightSlider.setMin(4);
+        changeHeightSlider.setMax(10);
+        changeHeightSlider.setMajorTickUnit(1);
+        changeHeightSlider.setMinorTickCount(0);
+        changeHeightSlider.setSnapToTicks(true);
+        changeHeightSlider.setShowTickMarks(true);
+        changeHeightSlider.setShowTickLabels(true);
+        changeHeightSlider.setMinWidth(270);
+        changeHeightSlider.setMaxWidth(270);
+        GridPane setBoardSizes = new GridPane();
+        setBoardSizes.setVgap(10);
+        setBoardSizes.setHgap(10);
+        setBoardSizes.add(changeLengthText, 0, 0);
+        setBoardSizes.add(changeWidthText, 0, 1);
+        setBoardSizes.add(changeHeigthText, 0, 2);
+        setBoardSizes.add(changeLengthSlider, 1, 0);
+        setBoardSizes.add(changeWidthSlider, 1, 1);
+        setBoardSizes.add(changeHeightSlider, 1, 2);
+        BorderPane boardSizeChangeSection = new BorderPane();
+        Label changeBoardSizesText = new Label("Change board sizes:");
+        changeBoardSizesText.setFont(new Font("Arial", 30));
+        changeBoardSizesText.setPadding(new Insets(0, 0, 30, 33));
+        boardSizeChangeSection.setTop(changeBoardSizesText);
+        boardSizeChangeSection.setCenter(setBoardSizes);
+        boardSizeChangeSection.setPadding(new Insets(100, 200, 0, 0));
+        
+        Label playerNumberText = new Label("Number of players:");
+        playerNumberText.setFont(new Font("Arial", 20));
+        playerNumberText.setPadding(new Insets(0, 20, 0, 0));
+        ChoiceBox changePlayerNumberChoicebox = new ChoiceBox(FXCollections.observableArrayList("2", "3", "4"));
+        changePlayerNumberChoicebox.setValue(players + "");
+        Label changePlayerNumberText = new Label("     Change the\nnumber of players:");
+        changePlayerNumberText.setFont(new Font("Arial", 30));
+        HBox changePlayerNumberHBox = new HBox();
+        changePlayerNumberHBox.getChildren().addAll(playerNumberText, changePlayerNumberChoicebox);
+        changePlayerNumberHBox.setPadding(new Insets(30, 0, 0, 10));
+        VBox changePlayerNumberSelection = new VBox();
+        changePlayerNumberSelection.getChildren().addAll(changePlayerNumberText, changePlayerNumberHBox);
+        changePlayerNumberSelection.setPadding(new Insets(80, 0, 0, 45));
+        
+        VBox settingsVBox = new VBox();
+        settingsVBox.getChildren().addAll(boardSizeChangeSection, changePlayerNumberSelection);
+        settingsBorderpane.setRight(settingsVBox);
+        
+        Scene settingsView = new Scene(settingsBorderpane, screenWidth, screenHeight);
         
         // Start new game with currently active settings
         buttonNewGame.setOnAction((event) -> {
@@ -165,7 +250,7 @@ public class App extends Application {
         
         // Open settings menu
         buttonSettings.setOnAction((event) -> {
-            gameplayBorderpane.setTop(menu);
+            settingsBorderpane.setTop(menu);
             window.setScene(settingsView);
         });
         
