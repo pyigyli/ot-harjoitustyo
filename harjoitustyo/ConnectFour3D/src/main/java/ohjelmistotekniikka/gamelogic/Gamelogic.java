@@ -22,9 +22,9 @@ public class Gamelogic {
     
     public void newGame() {
         this.turn = 1;
-        for (int i = 1; i <= this.width; i++) {
-            for (int j = 1; j <= this.height; j++) {
-                for (int k = 1; k <= this.length; k++) {
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
+                for (int k = 0; k < this.length; k++) {
                     this.board[i][j][k] = 0;
                 }
             }
@@ -48,9 +48,9 @@ public class Gamelogic {
     public int[][][] checkBoard(int playerNumber) {
         int[][][] playerBoard = new int[this.width][this.height][this.length];
         // Check the ownership of each piece on the board
-        for (int i = 1; i <= this.width; i++) {
-            for (int j = 1; j <= this.height; j++) {
-                for (int k = 1; k <= this.length; k++) {
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
+                for (int k = 0; k < this.length; k++) {
                     // Numbers determinate what piece belongs to whom
                     if (this.board[i][j][k] == playerNumber) {
                         playerBoard[i][j][k] = 1;
@@ -67,14 +67,14 @@ public class Gamelogic {
     public boolean checkWin(int[][][] playerBoard) {
         // Check every row along every axis
         // k-axis
-        for (int i = 1; i <= this.width; i++) {
-            for (int j = 1; j <= this.height; j++) {
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
                 // Create string of ones and zeroes that indicates if player has a piece in a slot
                 String checkString = "";
-                for (int k = 1; k <= this.length; k++) {
-                    if (k == 0) {
+                for (int k = 0; k < this.length; k++) {
+                    if (playerBoard[i][j][k] == 0) {
                         checkString = checkString + "0";
-                    } else if (k == 1) {
+                    } else if (playerBoard[i][j][k] == 1) {
                         checkString = checkString + "1";
                     }
                     // If player has four in a row, return true
@@ -85,14 +85,14 @@ public class Gamelogic {
             }
         }
         // j-axis
-        for (int i = 1; i <= this.width; i++) {
-            for (int k = 1; k <= this.length; k++) {
+        for (int i = 0; i < this.width; i++) {
+            for (int k = 0; k < this.length; k++) {
                 // Create string of ones and zeroes that indicates if player has a piece in a slot
                 String checkString = "";
-                for (int j = 1; j <= this.height; j++) {
-                    if (j == 0) {
+                for (int j = 0; j < this.height; j++) {
+                    if (playerBoard[i][j][k] == 0) {
                         checkString = checkString + "0";
-                    } else if (j == 1) {
+                    } else if (playerBoard[i][j][k] == 1) {
                         checkString = checkString + "1";
                     }
                     // If player has four in a row, return true
@@ -103,14 +103,14 @@ public class Gamelogic {
             }
         }
         // i-axis
-        for (int k = 1; k <= this.length; k++) {
-            for (int j = 1; j <= this.height; j++) {
+        for (int k = 0; k < this.length; k++) {
+            for (int j = 0; j < this.height; j++) {
                 // Create string of ones and zeroes that indicates if player has a piece in a slot
                 String checkString = "";
-                for (int i = 1; i <= this.width; i++) {
-                    if (i == 0) {
+                for (int i = 0; i < this.width; i++) {
+                    if (playerBoard[i][j][k] == 0) {
                         checkString = checkString + "0";
-                    } else if (i == 1) {
+                    } else if (playerBoard[i][j][k] == 1) {
                         checkString = checkString + "1";
                     }
                     // If player has four in a row, return true
