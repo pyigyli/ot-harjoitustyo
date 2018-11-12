@@ -4,35 +4,53 @@ package ohjelmistotekniikka.gamelogic;
 public class Gamelogic {
     
     private int players;
+    private int turn;
     // Board size
-    private int length;
-    private int width;
-    private int height;
+    private int width; // i-axis
+    private int height;  // j-axis
+    private int length; // k-axis
     private int[][][] board;
     
-    public Gamelogic(int players, int length, int width, int height) {
-        this.players = players;
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        this.board = new int[length][width][height];
+    public Gamelogic() {
+        this.players = 2;
+        this.turn = 1;
+        this.width = 7;
+        this.height = 7;
+        this.length = 7;
+        this.board = new int[7][7][7];
     }
     
-    public void setSettings(int players, int length, int width, int height) {
-        this.players = players;
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        this.board = new int[length][width][height];
+    public void newGame() {
+        this.turn = 1;
+        for (int i = 1; i <= this.width; i++) {
+            for (int j = 1; j <= this.height; j++) {
+                for (int k = 1; k <= this.length; k++) {
+                    this.board[i][j][k] = 0;
+                }
+            }
+        }
+    }
+    
+    // Place players piece and return true if placing piece in the column is possible
+    public boolean placePiece(int i, int k, int[][][] currentBoard) {
+        // Find the bottom most free slot
+        for (int j = this.height; j >= 0; j--) {
+            if (currentBoard[i][j][k] == 0) {
+                // Place the piece and end loop
+                this.board[i][j][k] = this.turn / this.players;
+                return true;
+            }
+        }
+        return false;
     }
     
     // Return an array where every slot a player has a piece in, is set to 1.
     public int[][][] checkBoard(int playerNumber) {
-        int[][][] playerBoard = new int[this.length][this.width][this.height];
+        int[][][] playerBoard = new int[this.width][this.height][this.length];
         // Check the ownership of each piece on the board
-        for (int i = 1; i <= this.length; i++) {
-            for (int j = 1; j <= this.width; j++) {
-                for (int k = 1; k <= this.height; k++) {
+        for (int i = 1; i <= this.width; i++) {
+            for (int j = 1; j <= this.height; j++) {
+                for (int k = 1; k <= this.length; k++) {
                     // Numbers determinate what piece belongs to whom
                     if (this.board[i][j][k] == playerNumber) {
                         playerBoard[i][j][k] = 1;
@@ -49,30 +67,54 @@ public class Gamelogic {
     public boolean checkWin(int[][][] playerBoard) {
         // Check every row along every axis
         // k-axis
-        for (int i = 1; i <= this.length; i++) {
-            for (int j = 1; j <= this.width; j++) {
-                for (int k = 1; k <= this.height; k++) {
-                    if (checkFourInRow(playerBoard[i][j][k])) {
+        for (int i = 1; i <= this.width; i++) {
+            for (int j = 1; j <= this.height; j++) {
+                // Create string of ones and zeroes that indicates if player has a piece in a slot
+                String checkString = "";
+                for (int k = 1; k <= this.length; k++) {
+                    if (k == 0) {
+                        checkString = checkString + "0";
+                    } else if (k == 1) {
+                        checkString = checkString + "1";
+                    }
+                    // If player has four in a row, return true
+                    if (checkString.contains("1111")) {
                         return true;
                     }
                 }
             }
         }
         // j-axis
-        for (int i = 1; i <= this.length; i++) {
-            for (int k = 1; k <= this.height; k++) {
-                for (int j = 1; j <= this.width; j++) {
-                    if (checkFourInRow(playerBoard[i][j][k])) {
+        for (int i = 1; i <= this.width; i++) {
+            for (int k = 1; k <= this.length; k++) {
+                // Create string of ones and zeroes that indicates if player has a piece in a slot
+                String checkString = "";
+                for (int j = 1; j <= this.height; j++) {
+                    if (j == 0) {
+                        checkString = checkString + "0";
+                    } else if (j == 1) {
+                        checkString = checkString + "1";
+                    }
+                    // If player has four in a row, return true
+                    if (checkString.contains("1111")) {
                         return true;
                     }
                 }
             }
         }
         // i-axis
-        for (int k = 1; k <= this.height; k++) {
-            for (int j = 1; j <= this.width; j++) {
-                for (int i = 1; i <= this.length; i++) {
-                    if (checkFourInRow(playerBoard[i][j][k])) {
+        for (int k = 1; k <= this.length; k++) {
+            for (int j = 1; j <= this.height; j++) {
+                // Create string of ones and zeroes that indicates if player has a piece in a slot
+                String checkString = "";
+                for (int i = 1; i <= this.width; i++) {
+                    if (i == 0) {
+                        checkString = checkString + "0";
+                    } else if (i == 1) {
+                        checkString = checkString + "1";
+                    }
+                    // If player has four in a row, return true
+                    if (checkString.contains("1111")) {
                         return true;
                     }
                 }
@@ -81,19 +123,8 @@ public class Gamelogic {
         return false;
     }
     
-    public boolean checkFourInRow(int x) {
-        // Create string of ones and zeroes that indicates if player has a piece in a slot
-        String checkString = "";
-        if (x == 0) {
-            checkString = checkString + "0";
-        } else if (x == 1) {
-            checkString = checkString + "1";
-        }
-        // If the checkString contains four 1's in a row, player wins
-        if (checkString.contains("1111")) {
-            return true;
-        }
-        return false;
+    public int[][][] getBoard() {
+        return this.board;
     }
     
     public void setPlayers(int players) {
@@ -104,18 +135,21 @@ public class Gamelogic {
         return this.players;
     }
     
-    public void setLength(int length) {
-        this.length = length;
-        this.board = new int[length][this.width][this.height];
+    public void nextTurn() {
+        this.turn++;
     }
     
-    public int getLength() {
-        return this.length;
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+    
+    public int getTurn() {
+        return this.turn;
     }
     
     public void setWidth(int width) {
         this.width = width;
-        this.board = new int[this.length][width][this.height];
+        this.board = new int[width][this.height][this.length];
     }
     
     public int getWidth() {
@@ -124,10 +158,19 @@ public class Gamelogic {
     
     public void setHeight(int height) {
         this.height = height;
-        this.board = new int[this.length][this.width][height];
+        this.board = new int[this.width][height][this.length];
     }
     
     public int getHeight() {
         return this.height;
+    }
+    
+    public void setLength(int length) {
+        this.length = length;
+        this.board = new int[this.width][this.height][length];
+    }
+    
+    public int getLength() {
+        return this.length;
     }
 }
