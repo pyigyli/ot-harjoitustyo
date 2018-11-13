@@ -1,6 +1,7 @@
 
 package ohjelmistotekniikka.application;
 
+import Jama.Matrix;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.value.ChangeListener;
@@ -251,7 +252,11 @@ public class App extends Application {
             selectX.setMax(game.getLength());
             selectZ.setMax(game.getWidth());
             window.setScene(gameplayView);
-            canvas.update(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            matrix = canvas.rotateX(matrix);
+            matrix = canvas.rotateY(matrix);
+            matrix = canvas.rotateZ(matrix);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
         });
         
         // Open settings menu
