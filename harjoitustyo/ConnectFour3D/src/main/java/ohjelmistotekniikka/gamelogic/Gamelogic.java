@@ -13,7 +13,7 @@ public class Gamelogic {
     
     public Gamelogic() {
         this.players = 2;
-        this.turn = 1;
+        this.turn = 0;
         this.width = 7;
         this.height = 7;
         this.length = 7;
@@ -21,11 +21,11 @@ public class Gamelogic {
     }
     
     public void newGame() {
-        this.turn = 1;
+        this.turn = 0;
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
                 for (int k = 0; k < this.length; k++) {
-                    this.board[i][j][k] = 0;
+                    this.board[i][j][k] = -1;
                 }
             }
         }
@@ -34,10 +34,10 @@ public class Gamelogic {
     // Place players piece and return true if placing piece in the column is possible
     public boolean placePiece(int i, int k, int[][][] currentBoard) {
         // Find the bottom most free slot
-        for (int j = this.height; j >= 0; j--) {
-            if (currentBoard[i][j][k] == 0) {
+        for (int j = 0; j < this.height; j++) {
+            if (currentBoard[i][j][k] == -1) {
                 // Place the piece and end loop
-                this.board[i][j][k] = this.turn / this.players;
+                this.board[i][j][k] = this.turn % this.players;
                 return true;
             }
         }

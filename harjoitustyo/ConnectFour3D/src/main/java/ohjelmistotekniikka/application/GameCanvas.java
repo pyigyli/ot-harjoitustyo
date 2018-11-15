@@ -14,6 +14,7 @@ public class GameCanvas {
     private final GraphicsContext gc;
     private final int width = 770;
     private final int height = 650;
+    private int[][][] board;
     private int players;
     private int scale;
     private int offsetX;
@@ -21,6 +22,8 @@ public class GameCanvas {
     private double xangle;
     private double yangle;
     private double zangle;
+    private int selectX;
+    private int selectZ;
     
     public GameCanvas(int players) {
         this.canvas = new Canvas(width, height);
@@ -32,6 +35,8 @@ public class GameCanvas {
         this.xangle = 0.0;
         this.yangle = 0.0;
         this.zangle = 0.0;
+        this.selectX = 0;
+        this.selectZ = 0;
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, width, height);
         gc.setLineWidth(2);
@@ -39,6 +44,7 @@ public class GameCanvas {
     
     // Converts 3D array into a matrix
     public Matrix boardToMatrix(int[][][] board, int width, int height, int length) {
+        this.board = board;
         // Make a new matrix using Jama-library
         Matrix matrix = new Matrix(width*height*length, 3);
         int index = 0;
@@ -47,8 +53,8 @@ public class GameCanvas {
                 for (int k = 0; k < length; k++) {
                     // Make a matrix that has every 3D coordinate point
                     matrix.set(index, 0, (i - (width / 2)));
-                    matrix.set(index, 1, (j - (height / 2)));
-                    matrix.set(index, 2, (k - (length / 2)));
+                    matrix.set(index, 1, (-j + (height / 2)));
+                    matrix.set(index, 2, (-k + (length / 2)));
                     index++;
                 }
             }
@@ -78,26 +84,63 @@ public class GameCanvas {
             for (int j = 0; j < height; j++) {
                 for (int k = 0; k < length; k++) {
                     // If-else statements to check what lines to draw
+                    // Draw lines parallel to X-axis
                     if (i != width - 1) {
-                        gc.setStroke(new Color(0.4,0,0,0.3));
+                        gc.setStroke(new Color(0.3,0,0,0.4));
                         gc.strokeLine(matrix2D.getMatrix(index, index, 0, 1).get(0, 0) * this.scale + this.offsetX,
                                     matrix2D.getMatrix(index, index, 0, 1).get(0, 1) * this.scale + this.offsetY,
                                     matrix2D.getMatrix(index+length*height, index+length*height, 0, 1).get(0, 0) * this.scale + this.offsetX,
                                     matrix2D.getMatrix(index+length*height, index+length*height, 0, 1).get(0, 1) * this.scale + this.offsetY);
                     }
+                    // Draw lines parallel to Y-axis
                     if (j != height - 1) {
-                        gc.setStroke(new Color(0,0.4,0,0.3));
+                        gc.setStroke(new Color(0,0.3,0,0.4));
                         gc.strokeLine(matrix2D.getMatrix(index, index, 0, 1).get(0, 0) * this.scale + this.offsetX,
                                     matrix2D.getMatrix(index, index, 0, 1).get(0, 1) * this.scale + this.offsetY,
                                     matrix2D.getMatrix(index+length, index+length, 0, 1).get(0, 0) * this.scale + this.offsetX,
                                     matrix2D.getMatrix(index+length, index+length, 0, 1).get(0, 1) * this.scale + this.offsetY);
+                        // Draw thicker line to indicate what coordinate the player is currently choosing
+                        if (i == selectX && k == selectZ) {
+                            gc.setStroke(new Color(0.1, 0.1, 0.1, 0.4));
+                            gc.setLineWidth(7);
+                            gc.strokeLine(matrix2D.getMatrix(index, index, 0, 1).get(0, 0) * this.scale + this.offsetX,
+                                    matrix2D.getMatrix(index, index, 0, 1).get(0, 1) * this.scale + this.offsetY,
+                                    matrix2D.getMatrix(index+length, index+length, 0, 1).get(0, 0) * this.scale + this.offsetX,
+                                    matrix2D.getMatrix(index+length, index+length, 0, 1).get(0, 1) * this.scale + this.offsetY);
+                            gc.setLineWidth(2);
+                        }
                     }
+                    // Draw lines parallel to Z-axis
                     if (k != length - 1) {
-                        gc.setStroke(new Color(0,0,0.4,0.3));
+                        gc.setStroke(new Color(0,0,0.3,0.4));
                         gc.strokeLine(matrix2D.getMatrix(index, index, 0, 1).get(0, 0) * this.scale + this.offsetX,
                                     matrix2D.getMatrix(index, index, 0, 1).get(0, 1) * this.scale + this.offsetY,
                                     matrix2D.getMatrix(index+1, index+1, 0, 1).get(0, 0) * this.scale + this.offsetX,
                                     matrix2D.getMatrix(index+1, index+1, 0, 1).get(0, 1) * this.scale + this.offsetY);
+                    }
+                    // Draw player1's pieces on the board
+                    if (this.board[i][j][k] == 0) {
+                        gc.setFill(new Color(1, 0, 0, 0.6));
+                        gc.fillOval(matrix2D.getMatrix(index, index, 0, 1).get(0, 0) * this.scale + this.offsetX - 10,
+                                    matrix2D.getMatrix(index, index, 0, 1).get(0, 1) * this.scale + this.offsetY - 10, 20, 20);
+                    }
+                    // Draw player2's pieces on the board
+                    if (this.board[i][j][k] == 1) {
+                        gc.setFill(new Color(0, 1, 0, 0.6));
+                        gc.fillOval(matrix2D.getMatrix(index, index, 0, 1).get(0, 0) * this.scale + this.offsetX - 10,
+                                    matrix2D.getMatrix(index, index, 0, 1).get(0, 1) * this.scale + this.offsetY - 10, 20, 20);
+                    }
+                    // Draw player3's pieces on the board
+                    if (this.board[i][j][k] == 2) {
+                        gc.setFill(new Color(0, 0, 1, 0.6));
+                        gc.fillOval(matrix2D.getMatrix(index, index, 0, 1).get(0, 0) * this.scale + this.offsetX - 10,
+                                    matrix2D.getMatrix(index, index, 0, 1).get(0, 1) * this.scale + this.offsetY - 10, 20, 20);
+                    }
+                    // Draw player4's pieces on the board
+                    if (this.board[i][j][k] == 3) {
+                        gc.setFill(new Color(0.9, 0.9, 0, 0.6));
+                        gc.fillOval(matrix2D.getMatrix(index, index, 0, 1).get(0, 0) * this.scale + this.offsetX - 10,
+                                    matrix2D.getMatrix(index, index, 0, 1).get(0, 1) * this.scale + this.offsetY - 10, 20, 20);
                     }
                     index++;
                 }
@@ -148,6 +191,14 @@ public class GameCanvas {
             matrix.set(i, 2, point.get(2, 0));
         }
         return matrix;
+    }
+    
+    public void setSelectX(int value) {
+        this.selectX = value;
+    }
+    
+    public void setSelectZ(int value) {
+        this.selectZ = value;
     }
     
     public void setScale(int value) {

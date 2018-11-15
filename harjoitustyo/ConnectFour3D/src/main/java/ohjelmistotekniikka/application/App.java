@@ -2,6 +2,7 @@
 package ohjelmistotekniikka.application;
 
 import Jama.Matrix;
+import java.util.ArrayList;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.value.ChangeListener;
@@ -20,7 +21,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ohjelmistotekniikka.gamelogic.Gamelogic;
 import ohjelmistotekniikka.player.Player;
@@ -37,10 +41,15 @@ public class App extends Application {
     // Default gameplay settings
         Gamelogic game = new Gamelogic();
         // Default player names
-        Player player1 = new Player(1, "Player 1");
-        Player player2 = new Player(2, "Player 2");
-        Player player3 = new Player(3, "Player 3");
-        Player player4 = new Player(4, "Player 4");
+        Player player1 = new Player(0, "Player 1");
+        Player player2 = new Player(1, "Player 2");
+        Player player3 = new Player(2, "Player 3");
+        Player player4 = new Player(3, "Player 4");
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(0, player1);
+        players.add(1, player2);
+        players.add(2, player3);
+        players.add(3, player4);
         
     // Setup application interface elements
         // Menu buttons
@@ -54,7 +63,7 @@ public class App extends Application {
         menu.setSpacing(20);
         menu.setAlignment(Pos.CENTER);
         
-        // Application opening scene
+        // Application opening and game end scene
         BorderPane welcomeScreen = new BorderPane();
         welcomeScreen.setTop(menu);
         Label welcomeLabel = new Label("Welcome to Connect Four 3D!");
@@ -118,10 +127,11 @@ public class App extends Application {
         GridPane.setHalignment(moveLeft, HPos.CENTER);
         VBox cameraVBox = new VBox();
         cameraVBox.getChildren().addAll(cameraLabel, resetCameraHBox, rotateGrid);
-        cameraVBox.setPadding(new Insets(0, 0, 150, 50));
+        cameraVBox.setPadding(new Insets(50, 0, 50, 50));
         // Gameplay buttons and labels
         Label playerTurnLabel = new Label("Your turn,\n" + player1.getName());
         playerTurnLabel.setFont(new Font("Arial black", 18));
+        playerTurnLabel.setTextFill(new Color(0.6, 0, 0, 1));
         playerTurnLabel.setPadding(new Insets(0, 0, 30, 0));
         Label Xaxis = new Label("X-axis");
         Xaxis.setFont(new Font("Arial", 16));
@@ -177,10 +187,10 @@ public class App extends Application {
         player2NameText1.setPadding(new Insets(30, 0, 0, 0));
         player3NameText1.setPadding(new Insets(30, 0, 0, 0));
         player4NameText1.setPadding(new Insets(30, 0, 0, 0));
-        Label player1NameText2 = new Label(player1.getName());
-        Label player2NameText2 = new Label(player2.getName());
-        Label player3NameText2 = new Label(player3.getName());
-        Label player4NameText2 = new Label(player4.getName());
+        Label player1NameText2 = new Label();
+        Label player2NameText2 = new Label();
+        Label player3NameText2 = new Label();
+        Label player4NameText2 = new Label();
         player1NameText2.setFont(new Font("Arial", 20));
         player2NameText2.setFont(new Font("Arial", 20));
         player3NameText2.setFont(new Font("Arial", 20));
@@ -291,11 +301,19 @@ public class App extends Application {
     // Menu button actions
         // Start new game with currently active settings
         buttonNewGame.setOnAction((event) -> {
+            game.newGame();
+            playerTurnLabel.setText("Your turn,\n" + player1.getName());
+            playerTurnLabel.setTextFill(new Color(0.6, 0, 0, 1));
             gameplayBorderpane.setTop(menu);
             selectX.setMax(game.getLength());
             selectZ.setMax(game.getWidth());
             window.setScene(gameplayView);
             Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.setOffsetX(canvas.getScreenWidth() / 2);
+            canvas.setOffsetY(canvas.getScreenHeight() / 2);
+            canvas.rotateX(matrix, canvas.getAngleX() * -1);
+            canvas.rotateY(matrix, canvas.getAngleY() * -1);
+            canvas.rotateZ(matrix, canvas.getAngleZ() * -1);
             canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
         });
         
@@ -412,7 +430,56 @@ public class App extends Application {
             canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
         });
         // Player input
-        
+        selectX.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                canvas.setSelectX(newValue.intValue() - 1);
+                Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+                canvas.rotateX(matrix, 0);
+                canvas.rotateY(matrix, 0);
+                canvas.rotateZ(matrix, 0);
+                canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            }
+        });
+        selectZ.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                canvas.setSelectZ(newValue.intValue() - 1);
+                Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+                canvas.rotateX(matrix, 0);
+                canvas.rotateY(matrix, 0);
+                canvas.rotateZ(matrix, 0);
+                canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            }
+        });
+        placePiece.setOnAction((event) -> {
+            if (game.placePiece((int) selectX.getValue() - 1, (int) selectZ.getValue() - 1, game.getBoard())) {
+                int[][][] playerBoard = game.checkBoard(game.getTurn() % game.getPlayers());
+                if (game.checkWin(playerBoard)) {
+                    welcomeLabel.setText("Congratulations " + players.get(game.getTurn() % game.getPlayers()).getName());
+                    welcomeScreen.setTop(menu);
+                    window.setScene(welcomeScene);
+                }
+                game.nextTurn();
+                playerTurnLabel.setText("Your turn,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
+                if ( players.get(game.getTurn() % game.getPlayers()).getNumber() == 0) {
+                    playerTurnLabel.setTextFill(new Color(0.6, 0, 0, 1));
+                } else if ( players.get(game.getTurn() % game.getPlayers()).getNumber() == 1) {
+                    playerTurnLabel.setTextFill(new Color(0, 0.6, 0, 1));
+                } else if ( players.get(game.getTurn() % game.getPlayers()).getNumber() == 2) {
+                    playerTurnLabel.setTextFill(new Color(0, 0, 0.6, 1));
+                } else {
+                    playerTurnLabel.setTextFill(new Color(0.6, 0.6, 0, 1));
+                }
+            } else {
+                playerTurnLabel.setText("Column full,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
+            }
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
     
     // Settings interface actions
         // Set player names
