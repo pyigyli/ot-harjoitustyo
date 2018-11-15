@@ -7,6 +7,7 @@ import static javafx.application.Application.launch;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -62,6 +63,62 @@ public class App extends Application {
         Scene welcomeScene = new Scene(welcomeScreen, screenWidth, screenHeight);
         
         // Gameplay scene
+        // Camera controls
+        Label cameraLabel = new Label("Camera");
+        cameraLabel.setFont(new Font("Arial black", 18));
+        cameraLabel.setPadding(new Insets(0, 0, 12, 43));
+        Button resetCamera = new Button("Reset");
+        HBox resetCameraHBox = new HBox();
+        resetCameraHBox.getChildren().addAll(resetCamera);
+        resetCameraHBox.setPadding(new Insets(0, 0, 5, 57));
+        Label xLabel = new Label("Rotate X");
+        Button xUp = new Button("Up");
+        Button xDown = new Button("Down");
+        Label yLabel = new Label("Rotate Y");
+        Button yUp = new Button("Up");
+        Button yDown = new Button("Down");
+        Label zLabel = new Label("Rotate Z");
+        Button zUp = new Button("Up");
+        Button zDown = new Button("Down");
+        Label moveLabel1 = new Label("Move");
+        moveLabel1.setPadding(new Insets(10, 0, 0, 0));
+        Button moveUp = new Button("Up");
+        Button moveDown = new Button("Down");
+        Label zoomLabel = new Label("Zoom");
+        zoomLabel.setPadding(new Insets(10, 0, 0, 0));
+        Button zoomIn = new Button("In");
+        Button zoomOut = new Button("Out");
+        Label moveLabel2 = new Label("Move");
+        moveLabel2.setPadding(new Insets(10, 0, 0, 0));
+        Button moveRight = new Button("Right");
+        Button moveLeft = new Button("Left");
+        GridPane rotateGrid = new GridPane();
+        rotateGrid.addColumn(0, xLabel, xUp, xDown, moveLabel1, moveUp, moveDown);
+        rotateGrid.addColumn(1, yLabel, yUp, yDown, zoomLabel, zoomIn, zoomOut);
+        rotateGrid.addColumn(2, zLabel, zUp, zDown, moveLabel2, moveRight, moveLeft);
+        rotateGrid.setVgap(5);
+        rotateGrid.setHgap(10);
+        GridPane.setHalignment(xLabel, HPos.CENTER);
+        GridPane.setHalignment(xUp, HPos.CENTER);
+        GridPane.setHalignment(xDown, HPos.CENTER);
+        GridPane.setHalignment(yLabel, HPos.CENTER);
+        GridPane.setHalignment(yUp, HPos.CENTER);
+        GridPane.setHalignment(yDown, HPos.CENTER);
+        GridPane.setHalignment(zLabel, HPos.CENTER);
+        GridPane.setHalignment(zUp, HPos.CENTER);
+        GridPane.setHalignment(zDown, HPos.CENTER);
+        GridPane.setHalignment(moveLabel1, HPos.CENTER);
+        GridPane.setHalignment(moveUp, HPos.CENTER);
+        GridPane.setHalignment(moveDown, HPos.CENTER);
+        GridPane.setHalignment(zoomLabel, HPos.CENTER);
+        GridPane.setHalignment(zoomIn, HPos.CENTER);
+        GridPane.setHalignment(zoomOut, HPos.CENTER);
+        GridPane.setHalignment(moveLabel2, HPos.CENTER);
+        GridPane.setHalignment(moveRight, HPos.CENTER);
+        GridPane.setHalignment(moveLeft, HPos.CENTER);
+        VBox cameraVBox = new VBox();
+        cameraVBox.getChildren().addAll(cameraLabel, resetCameraHBox, rotateGrid);
+        cameraVBox.setPadding(new Insets(0, 0, 150, 50));
         // Gameplay buttons and labels
         Label playerTurnLabel = new Label("Your turn,\n" + player1.getName());
         playerTurnLabel.setFont(new Font("Arial black", 18));
@@ -89,7 +146,7 @@ public class App extends Application {
         Button placePiece = new Button("Place piece");
         VBox gameplayButtons = new VBox();
         gameplayButtons.getChildren().addAll(playerTurnLabel, Xaxis, selectX, Zaxis, selectZ, placePiece);
-        gameplayButtons.setPadding(new Insets(0, 50, 0, 0));
+        gameplayButtons.setPadding(new Insets(0, 30, 0, 0));
         gameplayButtons.setMinWidth(300);
         gameplayButtons.setMaxWidth(300);
         gameplayButtons.setAlignment(Pos.CENTER);
@@ -99,9 +156,11 @@ public class App extends Application {
         canvasNode.getChildren().add(canvas.getCanvas());
         canvasNode.setPadding(new Insets(50, 0, 0, 60));
         // Combine all gameplay elemets
+        VBox controlsVBox = new VBox();
+        controlsVBox.getChildren().addAll(cameraVBox, gameplayButtons);
         BorderPane gameplayBorderpane = new BorderPane();
         gameplayBorderpane.setLeft(canvasNode);
-        gameplayBorderpane.setRight(gameplayButtons);
+        gameplayBorderpane.setRight(controlsVBox);
         Scene gameplayView = new Scene(gameplayBorderpane, screenWidth, screenHeight);
         
         // Settings scene
@@ -141,22 +200,10 @@ public class App extends Application {
         GridPane setPlayerNames = new GridPane();
         setPlayerNames.setVgap(10);
         setPlayerNames.setHgap(10);
-        setPlayerNames.add(player1NameText1, 0, 0);
-        setPlayerNames.add(player2NameText1, 0, 2);
-        setPlayerNames.add(player3NameText1, 0, 4);
-        setPlayerNames.add(player4NameText1, 0, 6);
-        setPlayerNames.add(player1NameText2, 1, 0);
-        setPlayerNames.add(player2NameText2, 1, 2);
-        setPlayerNames.add(player3NameText2, 1, 4);
-        setPlayerNames.add(player4NameText2, 1, 6);
-        setPlayerNames.add(player1SetName, 0, 1);
-        setPlayerNames.add(player2SetName, 0, 3);
-        setPlayerNames.add(player3SetName, 0, 5);
-        setPlayerNames.add(player4SetName, 0, 7);
-        setPlayerNames.add(player1setNameButton, 1, 1);
-        setPlayerNames.add(player2setNameButton, 1, 3);
-        setPlayerNames.add(player3setNameButton, 1, 5);
-        setPlayerNames.add(player4setNameButton, 1, 7);
+        setPlayerNames.addColumn(0, player1NameText1, player1SetName, player2NameText1, player2SetName,
+                                    player3NameText1, player3SetName, player4NameText1, player4SetName);
+        setPlayerNames.addColumn(1, player1NameText2, player1setNameButton, player2NameText2, player2setNameButton,
+                                    player3NameText2, player3setNameButton, player4NameText2, player4setNameButton);
         setPlayerNames.setPadding(new Insets(0, 0, 0, 35));
         BorderPane playerNameChangeSection = new BorderPane();
         Label changeNamesText = new Label("Change player names");
@@ -210,12 +257,8 @@ public class App extends Application {
         GridPane setBoardSizes = new GridPane();
         setBoardSizes.setVgap(10);
         setBoardSizes.setHgap(10);
-        setBoardSizes.add(changeLengthText, 0, 0);
-        setBoardSizes.add(changeWidthText, 0, 1);
-        setBoardSizes.add(changeHeigthText, 0, 2);
-        setBoardSizes.add(changeLengthSlider, 1, 0);
-        setBoardSizes.add(changeWidthSlider, 1, 1);
-        setBoardSizes.add(changeHeightSlider, 1, 2);
+        setBoardSizes.addColumn(0, changeLengthText, changeWidthText, changeHeigthText);
+        setBoardSizes.addColumn(1, changeLengthSlider, changeWidthSlider, changeHeightSlider);
         BorderPane boardSizeChangeSection = new BorderPane();
         Label changeBoardSizesText = new Label("Change board sizes:");
         changeBoardSizesText.setFont(new Font("Arial", 30));
@@ -245,7 +288,7 @@ public class App extends Application {
         settingsBorderpane.setRight(settingsVBox);
         Scene settingsView = new Scene(settingsBorderpane, screenWidth, screenHeight);
         
-    // Buttons and other interface actions
+    // Menu button actions
         // Start new game with currently active settings
         buttonNewGame.setOnAction((event) -> {
             gameplayBorderpane.setTop(menu);
@@ -253,9 +296,6 @@ public class App extends Application {
             selectZ.setMax(game.getWidth());
             window.setScene(gameplayView);
             Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            matrix = canvas.rotateX(matrix);
-            matrix = canvas.rotateY(matrix);
-            matrix = canvas.rotateZ(matrix);
             canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
         });
         
@@ -270,6 +310,109 @@ public class App extends Application {
         // Open rules menu
         
     // Gameplay interface actions
+        // Camera controls
+        resetCamera.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.setScale(650);
+            canvas.setOffsetX(canvas.getScreenWidth() / 2);
+            canvas.setOffsetY(canvas.getScreenHeight() / 2);
+            canvas.rotateX(matrix, canvas.getAngleX() * -1);
+            canvas.rotateY(matrix, canvas.getAngleY() * -1);
+            canvas.rotateZ(matrix, canvas.getAngleZ() * -1);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        xUp.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotateX(matrix, 0.1);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        xDown.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotateX(matrix, -0.1);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        yUp.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0.1);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        yDown.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, -0.1);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        zUp.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0.1);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        zDown.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, -0.1);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        moveUp.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.changeOffsetY(-10);
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        moveDown.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.changeOffsetY(10);
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        moveRight.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.changeOffsetX(10);
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        moveLeft.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.changeOffsetX(-10);
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        zoomIn.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.changeScale(10);
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        zoomOut.setOnAction((event) -> {
+            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.changeScale(-10);
+            canvas.rotateX(matrix, 0);
+            canvas.rotateY(matrix, 0);
+            canvas.rotateZ(matrix, 0);
+            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+        });
+        // Player input
+        
     
     // Settings interface actions
         // Set player names
