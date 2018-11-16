@@ -1,7 +1,7 @@
 # Vaatimusmäärittely
 
 ## Sovelluksen tarkoitus
-Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä muilla pienillä variaatioilla. Sopii hupikäyttöön.
+Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä muilla pienillä variaatioilla. Sopii hupikäyttöön 2-4 pelaajalle.
 
 ## Ominaisuuksia
 - 2-4 pelaajaa

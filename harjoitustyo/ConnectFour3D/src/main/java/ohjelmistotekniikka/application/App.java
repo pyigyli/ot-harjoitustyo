@@ -23,8 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ohjelmistotekniikka.gamelogic.Gamelogic;
 import ohjelmistotekniikka.player.Player;
@@ -41,10 +39,10 @@ public class App extends Application {
     // Default gameplay settings
         Gamelogic game = new Gamelogic();
         // Default player names
-        Player player1 = new Player(0, "Player 1");
-        Player player2 = new Player(1, "Player 2");
-        Player player3 = new Player(2, "Player 3");
-        Player player4 = new Player(3, "Player 4");
+        Player player1 = new Player("Player 1");
+        Player player2 = new Player("Player 2");
+        Player player3 = new Player("Player 3");
+        Player player4 = new Player("Player 4");
         ArrayList<Player> players = new ArrayList<>();
         players.add(0, player1);
         players.add(1, player2);
@@ -305,8 +303,8 @@ public class App extends Application {
             playerTurnLabel.setText("Your turn,\n" + player1.getName());
             playerTurnLabel.setTextFill(new Color(0.6, 0, 0, 1));
             gameplayBorderpane.setTop(menu);
-            selectX.setMax(game.getLength());
-            selectZ.setMax(game.getWidth());
+            selectX.setMax(game.getWidth());
+            selectZ.setMax(game.getLength());
             window.setScene(gameplayView);
             Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.setOffsetX(canvas.getScreenWidth() / 2);
@@ -462,11 +460,11 @@ public class App extends Application {
                 }
                 game.nextTurn();
                 playerTurnLabel.setText("Your turn,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
-                if ( players.get(game.getTurn() % game.getPlayers()).getNumber() == 0) {
+                if (game.getTurn() % game.getPlayers() == 0) {
                     playerTurnLabel.setTextFill(new Color(0.6, 0, 0, 1));
-                } else if ( players.get(game.getTurn() % game.getPlayers()).getNumber() == 1) {
+                } else if (game.getTurn() % game.getPlayers() == 1) {
                     playerTurnLabel.setTextFill(new Color(0, 0.6, 0, 1));
-                } else if ( players.get(game.getTurn() % game.getPlayers()).getNumber() == 2) {
+                } else if (game.getTurn() % game.getPlayers() == 2) {
                     playerTurnLabel.setTextFill(new Color(0, 0, 0.6, 1));
                 } else {
                     playerTurnLabel.setTextFill(new Color(0.6, 0.6, 0, 1));

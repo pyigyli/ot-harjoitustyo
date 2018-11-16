@@ -3,20 +3,10 @@ package ohjelmistotekniikka.player;
 
 public class Player {
     
-    private int number;
     private String name;
     
-    public Player(int number, String name) {
-        this.number = number;
+    public Player(String name) {
         this.name = name;
-    }
-    
-    public void setNumber(int number) {
-        this.number = number;
-    }
-    
-    public int getNumber() {
-        return this.number;
     }
     
     public void setName(String name) {
