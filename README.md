@@ -1,12 +1,50 @@
-# Ohjelmistotekniikka, Syksy 2018
-Kurssin *Ohjelmistotekniikka, 2018* edetessä lisään tänne tekemieni harjoitustehtävien vastauksia.
+#Connect Four 3D
 
-## Tehtävien palautukset
+Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä muilla pienillä variaatioilla. Sopii hupikäyttöön 2-4 pelaajalle.
 
-### Viikko 1
-* [Komentorivi.txt](https://github.com/pyigyli/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
-* [Gitlog.txt](https://github.com/pyigyli/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+##Dokumentaatio
 
-### Viikko 2
-* [Testikattavuus.png](https://github.com/pyigyli/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
-* [Harjoitustyön alustava määrittelydokumentti](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/vaatimusmaarittelu.md)
+[Vaatimusmäärittely](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/vaatimusmaarittelu.md)
+[Työaikakirjanpito](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/tuntikirjanpito.md)
+
+##Releaset
+
+-
+
+##Komentorivitoiminnot
+
+### Testaus
+
+Testit suoritetaan komennolla
+
+```
+mvn test
+```
+
+Testikattavuusraportti luodaan komennolla
+
+```
+mvn jacoco:report
+```
+
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
+
+### Suoritettavan jarin generointi
+
+Komento
+
+```
+mvn package
+```
+
+generoi hakemistoon _target_ suoritettavan jar-tiedoston _ConnectFour3D-1.0-SNAPSHOT.jar_
+
+### JavaDoc
+
+JavaDoc generoidaan komennolla
+
+```
+mvn javadoc:javadoc
+```
+
+JavaDocia voi tarkastella avaamalla selaimella tiedosto _target/site/apidocs/index.html_
