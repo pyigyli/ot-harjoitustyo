@@ -8,10 +8,6 @@ Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä 
 
 [Työaikakirjanpito](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/tuntikirjanpito.md)
 
-## Releaset
-
--
-
 ## Komentorivitoiminnot
 
 ### Testaus
