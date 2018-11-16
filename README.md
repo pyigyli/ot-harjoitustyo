@@ -1,17 +1,17 @@
-#Connect Four 3D
+# Connect Four 3D
 
 Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä muilla pienillä variaatioilla. Sopii hupikäyttöön 2-4 pelaajalle.
 
-##Dokumentaatio
+## Dokumentaatio
 
 [Vaatimusmäärittely](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/vaatimusmaarittelu.md)
 [Työaikakirjanpito](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/tuntikirjanpito.md)
 
-##Releaset
+## Releaset
 
 -
 
-##Komentorivitoiminnot
+## Komentorivitoiminnot
 
 ### Testaus
 
