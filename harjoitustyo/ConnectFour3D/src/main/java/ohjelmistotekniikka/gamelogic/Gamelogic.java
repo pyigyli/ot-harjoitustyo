@@ -84,7 +84,7 @@ public class Gamelogic {
         for (int k = 0; k < this.length; k++) {
             for (int j = 0; j < this.height; j++) {
                 for (int i = 0; i < this.width; i++) {
-                    if (i >= 0 && i < this.width - 3) {
+                    if (i < this.width - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j][k] == 1 &&
                                 playerBoard[i + 2][j][k] == 1 &&
@@ -103,7 +103,7 @@ public class Gamelogic {
         for (int i = 0; i < this.width; i++) {
             for (int k = 0; k < this.length; k++) {
                 for (int j = 0; j < this.height; j++) {
-                    if (j >= 0 && j < this.height - 3) {
+                    if (j < this.height - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i][j + 1][k] == 1 &&
                                 playerBoard[i][j + 2][k] == 1 &&
@@ -122,7 +122,7 @@ public class Gamelogic {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
                 for (int k = 0; k < this.length; k++) {
-                    if (k >= 0 && k < this.length - 3) {
+                    if (k < this.length - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i][j][k + 1] == 1 &&
                                 playerBoard[i][j][k + 2] == 1 &&
@@ -141,7 +141,7 @@ public class Gamelogic {
         for (int k = 0; k < this.length; k++) {
             for (int i = 0; i < this.width; i++) {
                 for (int j = 0; j < this.height; j++) {
-                    if (i >= 0 && i < this.width - 3 && j >= 0 && j < this.height - 3) {
+                    if (i < this.width - 3 && j < this.height - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j + 1][k] == 1 &&
                                 playerBoard[i + 2][j + 2][k] == 1 &&
@@ -160,7 +160,7 @@ public class Gamelogic {
         for (int k = 0; k < this.length; k++) {
             for (int i = 0; i < this.width; i++) {
                 for (int j = 0; j < this.height; j++) {
-                    if (i >= 0 && i < this.width - 3 && j >= 3 && j < this.height) {
+                    if (i < this.width - 3 && j >= 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j - 1][k] == 1 &&
                                 playerBoard[i + 2][j - 2][k] == 1 &&
@@ -179,7 +179,7 @@ public class Gamelogic {
         for (int j = 0; j < this.height; j++) {
             for (int k = 0; k < this.length; k++) {
                 for (int i = 0; i < this.width; i++) {
-                    if (i >= 0 && i < this.width - 3 && k >= 0 && k < this.length - 3) {
+                    if (i < this.width - 3 && k < this.length - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j][k + 1] == 1 &&
                                 playerBoard[i + 2][j][k + 2] == 1 &&
@@ -198,7 +198,7 @@ public class Gamelogic {
         for (int j = 0; j < this.height; j++) {
             for (int k = 0; k < this.length; k++) {
                 for (int i = 0; i < this.width; i++) {
-                    if (i >= 0 && i < this.width - 3 && k >= 3 && k < this.length) {
+                    if (i < this.width - 3 && k >= 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j][k - 1] == 1 &&
                                 playerBoard[i + 2][j][k - 2] == 1 &&
@@ -217,7 +217,7 @@ public class Gamelogic {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
                 for (int k = 0; k < this.length; k++) {
-                    if (j >= 0 && j < this.height - 3 && k >= 0 && k < this.length - 3) {
+                    if (j < this.height - 3 && k < this.length - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i][j + 1][k + 1] == 1 &&
                                 playerBoard[i][j + 2][k + 2] == 1 &&
@@ -236,7 +236,7 @@ public class Gamelogic {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
                 for (int k = 0; k < this.length; k++) {
-                    if (j >= 0 && j < this.height - 3 && k >= 3 && k < this.length) {
+                    if (j < this.height - 3 && k >= 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i][j + 1][k - 1] == 1 &&
                                 playerBoard[i][j + 2][k - 2] == 1 &&

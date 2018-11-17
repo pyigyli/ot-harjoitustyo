@@ -83,7 +83,7 @@ public class GameCanvas {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 for (int k = 0; k < length; k++) {
-                    // If-else statements to check what lines to draw
+                    // If-else statements to check what to draw
                     // Draw lines parallel to X-axis
                     if (i != width - 1) {
                         gc.setStroke(new Color(0.3,0,0,0.4));
