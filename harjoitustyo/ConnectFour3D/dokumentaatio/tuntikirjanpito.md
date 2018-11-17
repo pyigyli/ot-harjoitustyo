@@ -10,3 +10,4 @@
 | 13.11. | 4    | - Kolmiulotteisen pelilaudan piirtäminen ja metodit kuvakulmien muuttamiselle toteutettu. |
 | 15.11. | 6    | - Pelaajat voivat nyt vapaasti liikuttaa pelilaudan kameraa nappien avulla.<br> - Canvas-elementtiä ja käyttöliittymää toteutettu lisää, peliä on nyt mahdollista pelata. |
 | 16.11. | 5    | - Pelilogiikkaa optimoitu.<br> - Kahdessa tasossa kulkevat diagonaaliset suorat kelpaavat nyt voittamiseen.<br> - Testit pelilogiikalle aloitettu. |
+| 17.11. | 1    | - Pelilogiikan ja pelaaja-luokan testit toteutettu. |
