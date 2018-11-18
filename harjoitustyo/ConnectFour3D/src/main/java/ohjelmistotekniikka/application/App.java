@@ -2,7 +2,9 @@
 package ohjelmistotekniikka.application;
 
 import Jama.Matrix;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.value.ChangeListener;
@@ -15,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -26,11 +30,17 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ohjelmistotekniikka.gamelogic.Gamelogic;
 import ohjelmistotekniikka.player.Player;
+import ohjelmistotekniikka.scoredata.Database;
+import ohjelmistotekniikka.scoredata.Score;
+import ohjelmistotekniikka.scoredata.ScoreDao;
 
 public class App extends Application {
     
     @Override
-    public void start(Stage window) {
+    public void start(Stage window) throws ClassNotFoundException {
+        
+        Database database = new Database("jdbc:sqlite:db/Scores.db");
+        ScoreDao scoreDao = new ScoreDao(database);
         
     // Window settings
         final int screenWidth = 1200;
@@ -296,6 +306,29 @@ public class App extends Application {
         settingsBorderpane.setRight(settingsVBox);
         Scene settingsView = new Scene(settingsBorderpane, screenWidth, screenHeight);
         
+        // Scores scene
+        Label scoreColumnPlayer1 = new Label("Player 1");
+        Label scoreColumnPlayer2 = new Label("Player 2");
+        Label scoreColumnPlayer3 = new Label("Player 3");
+        Label scoreColumnPlayer4 = new Label("Player 4");
+        Label scoreColumnWinner = new Label("Winner");
+        scoreColumnPlayer1.setFont(new Font("Arial", 20));
+        scoreColumnPlayer2.setFont(new Font("Arial", 20));
+        scoreColumnPlayer3.setFont(new Font("Arial", 20));
+        scoreColumnPlayer4.setFont(new Font("Arial", 20));
+        scoreColumnWinner.setFont(new Font("Arial", 20));
+        HBox scoreColumnsVBox = new HBox();
+        scoreColumnsVBox.getChildren().addAll(scoreColumnPlayer1, scoreColumnPlayer2, scoreColumnPlayer3, scoreColumnPlayer4, scoreColumnWinner);
+        scoreColumnsVBox.setSpacing(150);
+        scoreColumnsVBox.setPadding(new Insets(50, 0, 0, 10));
+        ScrollPane scorelistPane = new ScrollPane();
+        scorelistPane.setPrefSize(1, 650);
+        scorelistPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        BorderPane scoreBorderpane = new BorderPane();
+        scoreBorderpane.setCenter(scoreColumnsVBox);
+        scoreBorderpane.setBottom(scorelistPane);
+        Scene scoreView = new Scene(scoreBorderpane, screenWidth, screenHeight);
+        
     // Menu button actions
         // Start new game with currently active settings
         buttonNewGame.setOnAction((event) -> {
@@ -322,6 +355,36 @@ public class App extends Application {
         });
         
         // Open scores menu
+        buttonScores.setOnAction((event) -> {
+            VBox scoreVBox = new VBox();
+            try {
+                List<Score> scorelist;
+                scorelist = scoreDao.findAll();
+                for (Score score: scorelist) {
+                    Label scoreLabelPlayer1 = new Label(score.getPlayer1());
+                    Label scoreLabelPlayer2 = new Label(score.getPlayer2());
+                    Label scoreLabelPlayer3 = new Label(score.getPlayer3());
+                    Label scoreLabelPlayer4 = new Label(score.getPlayer4());
+                    Label scoreLabelWinner = new Label(score.getWinner());
+                    scoreLabelPlayer1.setFont(new Font("Arial", 16));
+                    scoreLabelPlayer2.setFont(new Font("Arial", 16));
+                    scoreLabelPlayer3.setFont(new Font("Arial", 16));
+                    scoreLabelPlayer4.setFont(new Font("Arial", 16));
+                    scoreLabelWinner.setFont(new Font("Arial", 16));
+                    scoreLabelPlayer1.setMinWidth(223);
+                    scoreLabelPlayer2.setMinWidth(224);
+                    scoreLabelPlayer3.setMinWidth(223);
+                    scoreLabelPlayer4.setMinWidth(225);
+                    HBox scoreHBox = new HBox();
+                    scoreHBox.getChildren().addAll(scoreLabelPlayer1, scoreLabelPlayer2, scoreLabelPlayer3, scoreLabelPlayer4, scoreLabelWinner);
+                    scoreHBox.setPadding(new Insets(5, 0, 0, 10));
+                    scoreVBox.getChildren().add(scoreHBox);
+                }
+            } catch (SQLException ex) {}
+            scorelistPane.setContent(scoreVBox);
+            scoreBorderpane.setTop(menu);
+            window.setScene(scoreView);
+        });
         
         // Open rules menu
         
@@ -454,9 +517,20 @@ public class App extends Application {
             if (game.placePiece((int) selectX.getValue() - 1, (int) selectZ.getValue() - 1, game.getBoard())) {
                 int[][][] playerBoard = game.checkBoard(game.getTurn() % game.getPlayers());
                 if (game.checkWin(playerBoard)) {
-                    welcomeLabel.setText("Congratulations " + players.get(game.getTurn() % game.getPlayers()).getName());
+                    String winner = players.get(game.getTurn() % game.getPlayers()).getName();
+                    welcomeLabel.setText("Congratulations " + winner);
                     welcomeScreen.setTop(menu);
                     window.setScene(welcomeScene);
+                    Score score = new Score(player1.getName(), player2.getName(), player3.getName(), player4.getName(), winner);
+                    if (game.getPlayers() < 4) {
+                        score.setPlayer4("-");
+                    }
+                    if (game.getPlayers() < 3) {
+                        score.setPlayer3("-");
+                    }
+                    try {
+                        scoreDao.save(score);
+                    } catch (SQLException ex) {}
                 }
                 game.nextTurn();
                 playerTurnLabel.setText("Your turn,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
@@ -483,26 +557,46 @@ public class App extends Application {
         // Set player names
         player1setNameButton.setOnAction((event) -> {
             if (player1SetName.getText() != null && !player1SetName.getText().isEmpty()) {
-                player1.setName(player1SetName.getText());
-                player1NameText2.setText(player1.getName());
+                if (player1SetName.getText().length() <= 10) {
+                    player1.setName(player1SetName.getText());
+                    player1NameText2.setText(player1.getName());
+                } else {
+                    player1.setName(player1SetName.getText().substring(0, 10));
+                    player1NameText2.setText(player1.getName());
+                }
             }
         });
         player2setNameButton.setOnAction((event) -> {
             if (player2SetName.getText() != null && !player2SetName.getText().isEmpty()) {
-                player2.setName(player2SetName.getText());
-                player2NameText2.setText(player2.getName());
+                if (player2SetName.getText().length() <= 10) {
+                    player2.setName(player2SetName.getText());
+                    player2NameText2.setText(player2.getName());
+                } else {
+                    player2.setName(player2SetName.getText().substring(0,10));
+                    player2NameText2.setText(player2.getName());
+                }
             }
         });
         player3setNameButton.setOnAction((event) -> {
-            if (player3SetName.getText() != null && !player1SetName.getText().isEmpty()) {
-                player3.setName(player3SetName.getText());
-                player3NameText2.setText(player3.getName());
+            if (player3SetName.getText() != null && !player3SetName.getText().isEmpty()) {
+                if (player3SetName.getText().length() <= 10) {
+                    player3.setName(player3SetName.getText());
+                    player3NameText2.setText(player3.getName());
+                } else {
+                    player3.setName(player3SetName.getText().substring(0, 10));
+                    player3NameText2.setText(player3.getName());
+                }
             }
         });
         player4setNameButton.setOnAction((event) -> {
-            if (player4SetName.getText() != null && !player1SetName.getText().isEmpty()) {
-                player4.setName(player4SetName.getText());
-                player4NameText2.setText(player4.getName());
+            if (player4SetName.getText() != null && !player4SetName.getText().isEmpty()) {
+                if (player4SetName.getText().length() <= 10) {
+                    player4.setName(player4SetName.getText());
+                    player4NameText2.setText(player4.getName());
+                } else {
+                    player4.setName(player4SetName.getText().substring(0, 10));
+                    player4NameText2.setText(player4.getName());
+                }
             }
         });
         // Set board sizes
