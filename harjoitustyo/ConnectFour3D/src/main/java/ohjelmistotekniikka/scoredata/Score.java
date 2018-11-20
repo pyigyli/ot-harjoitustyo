@@ -41,6 +41,10 @@ public class Score {
         return this.player4;
     }
     
+    public void setWinner(String name) {
+        this.winner = name;
+    }
+    
     public String getWinner() {
         return this.winner;
     }

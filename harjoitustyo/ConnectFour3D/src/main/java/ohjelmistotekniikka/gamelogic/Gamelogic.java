@@ -31,7 +31,7 @@ public class Gamelogic {
         }
     }
     
-    // Place players piece and return true if placing piece in the column is possible
+    // Place player's piece and return true if placing piece in the column is possible
     public boolean placePiece(int i, int k, int[][][] currentBoard) {
         // Find the bottom most free slot
         for (int j = 0; j < this.height; j++) {

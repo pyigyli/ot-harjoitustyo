@@ -329,6 +329,8 @@ public class App extends Application {
         scoreBorderpane.setBottom(scorelistPane);
         Scene scoreView = new Scene(scoreBorderpane, screenWidth, screenHeight);
         
+        // Rules scene
+        
     // Menu button actions
         // Start new game with currently active settings
         buttonNewGame.setOnAction((event) -> {
@@ -515,24 +517,33 @@ public class App extends Application {
         });
         placePiece.setOnAction((event) -> {
             if (game.placePiece((int) selectX.getValue() - 1, (int) selectZ.getValue() - 1, game.getBoard())) {
+                Score score = new Score(player1.getName(), player2.getName(), player3.getName(), player4.getName(), "Draw");
+                if (game.getPlayers() < 4) {
+                    score.setPlayer4("-");
+                }
+                if (game.getPlayers() < 3) {
+                    score.setPlayer3("-");
+                }
                 int[][][] playerBoard = game.checkBoard(game.getTurn() % game.getPlayers());
                 if (game.checkWin(playerBoard)) {
                     String winner = players.get(game.getTurn() % game.getPlayers()).getName();
                     welcomeLabel.setText("Congratulations " + winner);
                     welcomeScreen.setTop(menu);
                     window.setScene(welcomeScene);
-                    Score score = new Score(player1.getName(), player2.getName(), player3.getName(), player4.getName(), winner);
-                    if (game.getPlayers() < 4) {
-                        score.setPlayer4("-");
-                    }
-                    if (game.getPlayers() < 3) {
-                        score.setPlayer3("-");
-                    }
+                    score.setWinner(winner);
                     try {
                         scoreDao.save(score);
                     } catch (SQLException ex) {}
                 }
                 game.nextTurn();
+                if (game.getTurn() == game.getWidth() * game.getHeight() * game.getLength()) {
+                    welcomeLabel.setText("It's a draw!");
+                    welcomeScreen.setTop(menu);
+                    window.setScene(welcomeScene);
+                    try {
+                        scoreDao.save(score);
+                    } catch (SQLException ex) {}
+                }
                 playerTurnLabel.setText("Your turn,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
                 if (game.getTurn() % game.getPlayers() == 0) {
                     playerTurnLabel.setTextFill(new Color(0.6, 0, 0, 1));
@@ -546,6 +557,7 @@ public class App extends Application {
             } else {
                 playerTurnLabel.setText("Column full,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
             }
+            
             Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.rotateX(matrix, 0);
             canvas.rotateY(matrix, 0);
