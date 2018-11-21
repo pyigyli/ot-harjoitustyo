@@ -13,3 +13,4 @@
 | 17.11. | 1    | - Pelilogiikan ja pelaaja-luokan testit toteutettu. |
 | 18.11. | 4    | - Pelitulosten tallentaminen ja listaaminen SQL-tietokantaa käyttäen toteutettu. |
 | 20.11. | 1    | - Tasapelin mahdollisuus toteutettu. |
+| 21.11. | 2    | - Pelilogiikkaa optimoitu poistamalla copy-paste -koodia.<br> - Checkstyle otettu käyttöön. |

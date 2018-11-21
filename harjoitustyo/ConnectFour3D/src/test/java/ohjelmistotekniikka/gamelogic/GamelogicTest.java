@@ -73,7 +73,7 @@ public class GamelogicTest {
     }
     
     @Test
-    public void checkWinWorksWithCheckWinX() {
+    public void checkWinReturnsTrue1() {
         game.setSlot(3, 0, 0, 3);
         game.setSlot(2, 0, 0, 3);
         game.setSlot(1, 0, 0, 3);
@@ -85,7 +85,7 @@ public class GamelogicTest {
     }
     
     @Test 
-    public void checkWinWorksWithCheckWinY() {
+    public void checkWinReturnsTrue2() {
         game.setSlot(0, 0, 0, 3);
         game.setSlot(0, 1, 0, 3);
         game.setSlot(0, 2, 0, 3);
@@ -97,7 +97,7 @@ public class GamelogicTest {
     }
     
     @Test 
-    public void checkWinWorksWithCheckWinZ() {
+    public void checkWinReturnsTrue3() {
         game.setSlot(0, 0, 0, 3);
         game.setSlot(0, 0, 1, 3);
         game.setSlot(0, 0, 2, 3);
@@ -109,7 +109,7 @@ public class GamelogicTest {
     }
     
     @Test 
-    public void checkWinWorksWithCheckWinXY1() {
+    public void checkWinReturnsTrue4() {
         game.setSlot(0, 0, 0, 3);
         game.setSlot(1, 1, 0, 3);
         game.setSlot(2, 2, 0, 3);
@@ -121,7 +121,7 @@ public class GamelogicTest {
     }
     
     @Test 
-    public void checkWinWorksWithCheckWinXY2() {
+    public void checkWinReturnsTrue5() {
         game.setSlot(0, 3, 0, 3);
         game.setSlot(1, 2, 0, 3);
         game.setSlot(2, 1, 0, 3);
@@ -133,7 +133,7 @@ public class GamelogicTest {
     }
     
     @Test 
-    public void checkWinWorksWithCheckWinXZ1() {
+    public void checkWinReturnsTrue6() {
         game.setSlot(0, 0, 0, 3);
         game.setSlot(1, 0, 1, 3);
         game.setSlot(2, 0, 2, 3);
@@ -145,7 +145,7 @@ public class GamelogicTest {
     }
     
     @Test 
-    public void checkWinWorksWithCheckWinZX2() {
+    public void checkWinReturnsTrue7() {
         game.setSlot(0, 0, 3, 3);
         game.setSlot(1, 0, 2, 3);
         game.setSlot(2, 0, 1, 3);
@@ -157,7 +157,7 @@ public class GamelogicTest {
     }
     
     @Test 
-    public void checkWinWorksWithCheckWinYZ1() {
+    public void checkWinReturnsTrue8() {
         game.setSlot(0, 0, 0, 3);
         game.setSlot(0, 1, 1, 3);
         game.setSlot(0, 2, 2, 3);
@@ -169,13 +169,61 @@ public class GamelogicTest {
     }
     
     @Test 
-    public void checkWinWorksWithCheckWinYZ2() {
+    public void checkWinReturnsTrue9() {
         game.setSlot(0, 0, 3, 3);
         game.setSlot(0, 1, 2, 3);
         game.setSlot(0, 2, 1, 3);
         int[][][] playerBoard = game.checkBoard(3);
         assertTrue(!game.checkWin(playerBoard));
         game.setSlot(0, 3, 0, 3);
+        playerBoard = game.checkBoard(3);
+        assertTrue(game.checkWin(playerBoard));
+    }
+    
+    @Test 
+    public void checkWinReturnsTrue10() {
+        game.setSlot(0, 0, 0, 3);
+        game.setSlot(1, 1, 1, 3);
+        game.setSlot(2, 2, 2, 3);
+        int[][][] playerBoard = game.checkBoard(3);
+        assertTrue(!game.checkWin(playerBoard));
+        game.setSlot(3, 3, 3, 3);
+        playerBoard = game.checkBoard(3);
+        assertTrue(game.checkWin(playerBoard));
+    }
+    
+    @Test 
+    public void checkWinReturnsTrue11() {
+        game.setSlot(3, 0, 0, 3);
+        game.setSlot(2, 1, 1, 3);
+        game.setSlot(1, 2, 2, 3);
+        int[][][] playerBoard = game.checkBoard(3);
+        assertTrue(!game.checkWin(playerBoard));
+        game.setSlot(0, 3, 3, 3);
+        playerBoard = game.checkBoard(3);
+        assertTrue(game.checkWin(playerBoard));
+    }
+    
+    @Test 
+    public void checkWinReturnsTrue12() {
+        game.setSlot(0, 3, 0, 3);
+        game.setSlot(1, 2, 1, 3);
+        game.setSlot(2, 1, 2, 3);
+        int[][][] playerBoard = game.checkBoard(3);
+        assertTrue(!game.checkWin(playerBoard));
+        game.setSlot(3, 0, 3, 3);
+        playerBoard = game.checkBoard(3);
+        assertTrue(game.checkWin(playerBoard));
+    }
+    
+    @Test 
+    public void checkWinReturnsTrue13() {
+        game.setSlot(0, 0, 3, 3);
+        game.setSlot(1, 1, 2, 3);
+        game.setSlot(2, 2, 1, 3);
+        int[][][] playerBoard = game.checkBoard(3);
+        assertTrue(!game.checkWin(playerBoard));
+        game.setSlot(3, 3, 0, 3);
         playerBoard = game.checkBoard(3);
         assertTrue(game.checkWin(playerBoard));
     }

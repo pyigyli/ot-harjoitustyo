@@ -63,27 +63,11 @@ public class Gamelogic {
         return playerBoard;
     }
     
-    // Go through every winCheck and return true if any of them are true
+    // Check every row and diagonal and return true, if player has four pieces in a row
     public Boolean checkWin(int[][][] playerBoard) {
-        if (this.checkWinX(playerBoard) ||
-                this.checkWinY(playerBoard) ||
-                this.checkWinZ(playerBoard) ||
-                this.checkWinXY1(playerBoard) ||
-                this.checkWinXY2(playerBoard) ||
-                this.checkWinXZ1(playerBoard) ||
-                this.checkWinXZ2(playerBoard) ||
-                this.checkWinYZ1(playerBoard) ||
-                this.checkWinYZ2(playerBoard)) {
-            return true;
-        }
-        return false;
-    }
-    
-    // Check every row parallel to X-axis
-    public boolean checkWinX(int[][][] playerBoard) {
-        for (int k = 0; k < this.length; k++) {
+        for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
-                for (int i = 0; i < this.width; i++) {
+                for (int k = 0; k < this.length; k++) {
                     if (i < this.width - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j][k] == 1 &&
@@ -92,17 +76,6 @@ public class Gamelogic {
                             return true;
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-    
-    // Check every row parallel to Y-axis
-    public boolean checkWinY(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int k = 0; k < this.length; k++) {
-                for (int j = 0; j < this.height; j++) {
                     if (j < this.height - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i][j + 1][k] == 1 &&
@@ -111,17 +84,6 @@ public class Gamelogic {
                             return true;
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-    
-    // Check every row parallel to Z-axis
-    public boolean checkWinZ(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
                     if (k < this.length - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i][j][k + 1] == 1 &&
@@ -130,17 +92,6 @@ public class Gamelogic {
                             return true;
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-    
-    // Check every row parallel to diagonal where X increases and Y increases
-    public boolean checkWinXY1(int[][][] playerBoard) {
-        for (int k = 0; k < this.length; k++) {
-            for (int i = 0; i < this.width; i++) {
-                for (int j = 0; j < this.height; j++) {
                     if (i < this.width - 3 && j < this.height - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j + 1][k] == 1 &&
@@ -149,17 +100,6 @@ public class Gamelogic {
                             return true;
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-    
-    // Check every row parallel to diagonal where X increases and Y decreases
-    public boolean checkWinXY2(int[][][] playerBoard) {
-        for (int k = 0; k < this.length; k++) {
-            for (int i = 0; i < this.width; i++) {
-                for (int j = 0; j < this.height; j++) {
                     if (i < this.width - 3 && j >= 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j - 1][k] == 1 &&
@@ -168,17 +108,6 @@ public class Gamelogic {
                             return true;
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-    
-    // Check every row parallel to diagonal where X increases and Z increases
-    public boolean checkWinXZ1(int[][][] playerBoard) {
-        for (int j = 0; j < this.height; j++) {
-            for (int k = 0; k < this.length; k++) {
-                for (int i = 0; i < this.width; i++) {
                     if (i < this.width - 3 && k < this.length - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j][k + 1] == 1 &&
@@ -187,17 +116,6 @@ public class Gamelogic {
                             return true;
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-    
-    // Check every row parallel to diagonal where X increases and Z decreases
-    public boolean checkWinXZ2(int[][][] playerBoard) {
-        for (int j = 0; j < this.height; j++) {
-            for (int k = 0; k < this.length; k++) {
-                for (int i = 0; i < this.width; i++) {
                     if (i < this.width - 3 && k >= 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i + 1][j][k - 1] == 1 &&
@@ -206,17 +124,6 @@ public class Gamelogic {
                             return true;
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-    
-    // Check every row parallel to diagonal where Y increases and Z increases
-    public boolean checkWinYZ1(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
                     if (j < this.height - 3 && k < this.length - 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i][j + 1][k + 1] == 1 &&
@@ -225,22 +132,43 @@ public class Gamelogic {
                             return true;
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-    
-    // Check every row parallel to diagonal where Y increases and Z decreases
-    public boolean checkWinYZ2(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
                     if (j < this.height - 3 && k >= 3) {
                         if (playerBoard[i][j][k] == 1 &&
                                 playerBoard[i][j + 1][k - 1] == 1 &&
                                 playerBoard[i][j + 2][k - 2] == 1 &&
                                 playerBoard[i][j + 3][k - 3] == 1) {
+                            return true;
+                        }
+                    }
+                    if (i < this.width - 3 && j < this.height - 3 && k < this.length - 3) {
+                        if (playerBoard[i][j][k] == 1 &&
+                                playerBoard[i + 1][j + 1][k + 1] == 1 &&
+                                playerBoard[i + 2][j + 2][k + 2] == 1 &&
+                                playerBoard[i + 3][j + 3][k + 3] == 1) {
+                            return true;
+                        }
+                    }
+                    if (i >= 3 && j < this.height - 3 && k < this.length - 3) {
+                        if (playerBoard[i][j][k] == 1 &&
+                                playerBoard[i - 1][j + 1][k + 1] == 1 &&
+                                playerBoard[i - 2][j + 2][k + 2] == 1 &&
+                                playerBoard[i - 3][j + 3][k + 3] == 1) {
+                            return true;
+                        }
+                    }
+                    if (i < this.width - 3 && j >= 3 && k < this.length - 3) {
+                        if (playerBoard[i][j][k] == 1 &&
+                                playerBoard[i + 1][j - 1][k + 1] == 1 &&
+                                playerBoard[i + 2][j - 2][k + 2] == 1 &&
+                                playerBoard[i + 3][j - 3][k + 3] == 1) {
+                            return true;
+                        }
+                    }
+                    if (i < this.width - 3 && j < this.height - 3 && k >= 3) {
+                        if (playerBoard[i][j][k] == 1 &&
+                                playerBoard[i + 1][j + 1][k - 1] == 1 &&
+                                playerBoard[i + 2][j + 2][k - 2] == 1 &&
+                                playerBoard[i + 3][j + 3][k - 3] == 1) {
                             return true;
                         }
                     }

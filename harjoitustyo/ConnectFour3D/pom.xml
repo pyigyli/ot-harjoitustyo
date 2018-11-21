@@ -38,6 +38,7 @@
                 <configuration>
                     <excludes>
                         <exclude>ohjelmistotekniikka/application/**/*</exclude>
+                        <exclude>ohjelmistotekniikka/scoredata/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
