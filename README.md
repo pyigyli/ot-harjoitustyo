@@ -4,11 +4,11 @@ Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä 
 
 ## Dokumentaatio
 
-[Arkkiitehtuurikuvaus](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/arkkitehtuurikuvaus.md)
-
 [Vaatimusmäärittely](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/vaatimusmaarittelu.md)
 
 [Työaikakirjanpito](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/tuntikirjanpito.md)
+
+[Arkkiitehtuurikuvaus](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/arkkitehtuurikuvaus.md)
 
 ## Komentorivitoiminnot
 
