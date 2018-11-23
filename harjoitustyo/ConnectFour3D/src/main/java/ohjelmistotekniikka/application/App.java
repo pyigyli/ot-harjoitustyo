@@ -5,6 +5,8 @@ import Jama.Matrix;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.value.ChangeListener;
@@ -382,7 +384,17 @@ public class App extends Application {
                     scoreHBox.setPadding(new Insets(5, 0, 0, 10));
                     scoreVBox.getChildren().add(scoreHBox);
                 }
-            } catch (SQLException ex) {}
+            } catch (SQLException ex) {
+                Label scoreLabelPlayer1 = new Label("Error in data");
+                scoreLabelPlayer1.setFont(new Font("Arial", 26));
+                HBox scoreHBox = new HBox();
+                scoreHBox.getChildren().addAll(scoreLabelPlayer1);
+                scoreHBox.setPadding(new Insets(300, 0, 0, 520));
+                scoreVBox.getChildren().add(scoreHBox);
+                try {
+                    scoreDao.initialize();
+                } catch (SQLException ex1) {}
+            }
             scorelistPane.setContent(scoreVBox);
             scoreBorderpane.setTop(menu);
             window.setScene(scoreView);

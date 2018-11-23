@@ -8,12 +8,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+* Class is used in conjunction with the Database and Score
+* to store and retrieve scores from previous games.
+*/
 public class ScoreDao implements Dao<Score, Integer> {
     
     private Database database;
 
+    /**
+    * Method initializes the database.
+    * 
+    * @param    database    the database to be used
+    */
     public ScoreDao(Database database) {
         this.database = database;
+    }
+    
+    /**
+    * Method fixes the database in case it throws SQLexeption.
+    */
+    public void initialize() throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("CREATE TABLE Score ("
+                                                    + "id int, "
+                                                    + "player1 varchar(10), "
+                                                    + "player2 varchar(10), "
+                                                    + "player3 varchar(10), "
+                                                    + "player4 varchar(10), "
+                                                    + "winner varchar(10));");
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
     }
     
     @Override

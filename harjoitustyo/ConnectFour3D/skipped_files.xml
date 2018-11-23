@@ -7,4 +7,5 @@
 <suppressions>
     <suppress files="ohjelmistotekniikka.application.App.java" checks="[a-zA-Z0-9]*"/>
     <suppress files="ohjelmistotekniikka.application.GameCanvas.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ohjelmistotekniikka.scoredata.Dao.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>

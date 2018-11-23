@@ -225,10 +225,6 @@ public class GameCanvas {
         this.offsetY += value;
     }
     
-    public void setPlayers(int players) {
-        this.players = players;
-    }
-    
     public Canvas getCanvas() {
         return this.canvas;
     }
