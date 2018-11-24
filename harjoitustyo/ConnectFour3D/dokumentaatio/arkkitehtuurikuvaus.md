@@ -34,9 +34,11 @@ Esitetään seuraavaksi sekvenssikaavio, jossa kuvataan uuden pelin aloittamista
 
 <img src="https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/uusi_peli_sekvenssikaavio.png" width="750">
 
-### Pelituloksen tallentaminen
+### Pelin päättyminen
 
-Esitetään seuraavaksi sekvenssikaavio, jossa kuvataan asetusten muuttamista oletusasetuksista. Vaihdetaan sekvenssikaaviossamme ensiksi ensimmäisen pelaajan nimi, pelilaudan leveys kokoon 5 ja vaihdetaan vielä pelaajien määräksi kolme.
+Esitetään seuraavaksi sekvenssikaavio, jossa kuvataan 3 pelaajan pelin päättymistä vuorolla 16 (tai 15, sillä koodissa ensimmäinen vuoro on 0). Olkoon Pelaaja 1 voittaja, joka saa neljä pelinappulaansa pystysuoraan jonoon. Jätetään taas käyttöliittymään ja pelilaudan piirtämiseen liittyvät metodit pois sekvenssikaaviosta, jotta tulosten tallennuksen kannalta olennaiset metodit ovat helpommin seurattavissa.
+
+<img src="https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/pelin_paattyminen_sekvenssikaavio.png" width="750">
 
 ## Ohjelman rakenteeseen jääneet heikkoudet
 
