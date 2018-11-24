@@ -27,6 +27,8 @@ public class ScoreDao implements Dao<Score, Integer> {
     
     /**
     * Method fixes the database in case it throws SQLexeption.
+    * 
+    * @throws   java.sql.SQLException   invalid SQL-command
     */
     public void initialize() throws SQLException {
         Connection conn = database.getConnection();

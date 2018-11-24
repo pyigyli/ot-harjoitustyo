@@ -5,8 +5,6 @@ import Jama.Matrix;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.value.ChangeListener;
@@ -332,6 +330,23 @@ public class App extends Application {
         Scene scoreView = new Scene(scoreBorderpane, screenWidth, screenHeight);
         
         // Rules scene
+        Label rulesText1 = new Label("Players drop pieces in the board in turns.");
+        Label rulesText2 = new Label("Select the collumn you want to place your piece in and try to connect four of your pieces in a row.");
+        Label rulesText3 = new Label("Every axis and diagonal is acceptable, but be aware. Your opponents are trying to do the same,");
+        Label rulesText4 = new Label("so try not to let them do it themself by blocking their rows with your pieces.");
+        rulesText1.setFont(new Font("Arial", 20));
+        rulesText2.setFont(new Font("Arial", 20));
+        rulesText3.setFont(new Font("Arial", 20));
+        rulesText4.setFont(new Font("Arial", 20));
+        rulesText2.setPadding(new Insets(50, 0, 0, 0));
+        rulesText3.setPadding(new Insets(50, 0, 0, 0));
+        rulesText4.setPadding(new Insets(50, 0, 0, 0));
+        VBox rulesVBox = new VBox();
+        rulesVBox.getChildren().addAll(rulesText1, rulesText2, rulesText3, rulesText4);
+        rulesVBox.setAlignment(Pos.CENTER);
+        BorderPane rulesBorderpane = new BorderPane();
+        rulesBorderpane.setCenter(rulesVBox);
+        Scene rulesView = new Scene(rulesBorderpane, screenWidth, screenHeight);
         
     // Menu button actions
         // Start new game with currently active settings
@@ -401,6 +416,10 @@ public class App extends Application {
         });
         
         // Open rules menu
+        buttonRules.setOnAction((event) -> {
+            rulesBorderpane.setTop(menu);
+            window.setScene(rulesView);
+        });
         
     // Gameplay interface actions
         // Camera controls
@@ -569,7 +588,6 @@ public class App extends Application {
             } else {
                 playerTurnLabel.setText("Column full,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
             }
-            
             Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.rotateX(matrix, 0);
             canvas.rotateY(matrix, 0);
