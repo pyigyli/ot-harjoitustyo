@@ -4,6 +4,10 @@
 
 Sovelluksen rakenteen voi jakaa neljään erilliseen osaan. Käyttöliittymä, pelin graafinen visualisointi, pelilogiikka ja tietokannan käyttö. Näillä kaikilla on oma selkeä tehtävänsä.
 
+### Luokkakaavio
+
+<img src="https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/luokkakaavio.png" width="900">
+
 ## Käyttöliittymä
 
 Käyttöliittymä koostuu neljästä eri näkymästä:
