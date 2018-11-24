@@ -22,17 +22,19 @@ Pelilogiikassa on toteutettu kaikki vaadittavat metodit, jotka mahdollistavat pe
 
 ## Pelitulosten pysyväistallennus
 
-Pelitulosten tallentamiseen ja niiden hakemiseen on käytetty paikallista SQL-tietokantaa. Käyttäjän on täysin mahdollista poistaa kyseinen tiedosto laitteeltaan, jolloin tietokannan puuttumisesta johtuva virheviesti tulee näkyviin pelitulosten näkymästä ja samalla tietokantataulut luodaan uudellee, jolloin tulosten tallentaminen on jälleen mahdollista.
+Pelitulosten tallentamiseen ja niiden hakemiseen on käytetty paikallista SQL-tietokantaa. Käyttäjän on täysin mahdollista poistaa kyseinen tiedosto laitteeltaan, jolloin tietokannan puuttumisesta johtuva virheviesti tulee näkyviin pelitulosten näkymässä ja virheviestin yhteydessä tietokantataulut luodaan uudellee, jolloin tulosten tallentaminen on jälleen mahdollista.
 
 Luokat noudattavat Data Access Object -suunnittelumallia ja ne on tarvittaessa mahdollista korvata uusilla toteutuksilla, jos sovelluksen datan talletustapaa päätetään vaihtaa. Luokat onkin eristetty rajapinnan _ScoreDao_ taakse ja käyttöliittymä ei käytä luokkia suoraan.
 
 ## Päätoiminnallisuudet
 
-### Uusi peli ja siirrot
+### Uusi peli ja pelinappulan asettaminen
 
-Esitetään seuraavaksi sekvenssikaavio, jossa kuvataan uuden pelin aloittamista pelin oletusasetuksilla ja kahden pelaajan ensimmäisten pelinappuloiden asettamista.
+Esitetään seuraavaksi sekvenssikaavio, jossa kuvataan uuden pelin aloittamista pelin oletusasetuksilla ja yhden pelaajan ensimmäisen pelinappulan asettamista. Keskitytään ainoastaan pelilogiikkaan, jotta sekvenssikaavio ei täyty käyttöliittymään ja pelilaudan piirtämiseen liittyvistä metodeista. Jätetään myös pelitulosten tallennus huomiotta, sillä keskitymme siihen seuraavaksi tarkemmin.
 
-### Peliasetusten muuttaminen
+<img src="https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/uusi_peli_sekvenssikaavio.png" width="750">
+
+### Pelituloksen tallentaminen
 
 Esitetään seuraavaksi sekvenssikaavio, jossa kuvataan asetusten muuttamista oletusasetuksista. Vaihdetaan sekvenssikaaviossamme ensiksi ensimmäisen pelaajan nimi, pelilaudan leveys kokoon 5 ja vaihdetaan vielä pelaajien määräksi kolme.
 
