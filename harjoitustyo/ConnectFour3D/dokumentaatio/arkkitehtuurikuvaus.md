@@ -12,10 +12,15 @@ Käyttöliittymä koostuu neljästä eri näkymästä:
 - Menneiden pelien tulokset
 - Pelin säännöt
 
-[logo]: https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_pelinakyma.png "Pelinäkymä"
-[logo]: https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_asetusnakyma.png "Asetusnäkymä"
-[logo]: https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_tulosnakyma.png "Tulosnäkymä"
-[logo]: https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_saantonakyma.png "Sääntönäkymä"
+![alt text][Pelinäkymä_kuva]
+![alt text][Asetusnäkymä_kuva]
+![alt text][Tulosnäkymä_kuva]
+![alt text][Sääntönäkymä_kuva]
+
+[Pelinäkymä_kuva]: https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_pelinakyma.png "Pelinäkymä"
+[Asetusnäkymä_kuva]: https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_asetusnakyma.png "Asetusnäkymä"
+[Tulosnäkymä_kuva]: https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_tulosnakyma.png "Tulosnäkymä"
+[Sääntönäkymä_kuva]: https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_saantonakyma.png "Sääntönäkymä"
 
 jokainen näistä on toteutettu omana Scene-oliona. Näkymistä yksi kerrallaan on näkyvänä eli sijoitettuna sovelluksen stageen. Kaikissa näkymissä yksi yhteinen elementti on ikkunan yläosassa näkyvä valikko, jota käyttämällä näkymiä voi vaihtaa.
 
