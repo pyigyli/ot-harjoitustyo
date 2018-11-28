@@ -13,7 +13,7 @@ Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä 
 
 ## Releaset
 
-[Viikko 5]()
+[Viikko 5](https://github.com/pyigyli/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Komentorivitoiminnot
 
