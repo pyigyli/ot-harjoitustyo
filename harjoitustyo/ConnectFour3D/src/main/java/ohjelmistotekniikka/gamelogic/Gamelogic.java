@@ -99,10 +99,10 @@ public class Gamelogic {
     }
     
     /**
-    * Method takes three-dimensional array of integer that contains
+    * Method takes three-dimensional array of integers that contains
     * 1's and 0's indicating if a player has a piece in that slot.
-    * The method goes through every wincheck and return true if the
-    * playerBoard has four in a row in any row or diagonal.
+    * The method goes through every row and diagonal and return true
+    * if playerBoard has four in a row in any row or diagonal.
     *
     * @param    playerBoard     integer to be compared against
     *                           every slot in the board
@@ -111,417 +111,60 @@ public class Gamelogic {
     *           the game or not
     */
     public Boolean checkWin(int[][][] playerBoard) {
-        if (this.checkWinX(playerBoard) ||
-                this.checkWinY(playerBoard) ||
-                this.checkWinZ(playerBoard) ||
-                this.checkWinXY1(playerBoard) ||
-                this.checkWinXY2(playerBoard) ||
-                this.checkWinXZ1(playerBoard) ||
-                this.checkWinXZ2(playerBoard) ||
-                this.checkWinYZ1(playerBoard) ||
-                this.checkWinYZ2(playerBoard) ||
-                this.checkWinXYZ1(playerBoard) ||
-                this.checkWinXYZ2(playerBoard) ||
-                this.checkWinXYZ3(playerBoard) ||
-                this.checkWinXYZ4(playerBoard)) {
+        if (this.checkFourInRow(playerBoard, 1, 0, 0) ||
+                this.checkFourInRow(playerBoard, 0, 1, 0) ||
+                this.checkFourInRow(playerBoard, 0, 0, 1) ||
+                this.checkFourInRow(playerBoard, 1, 1, 0) ||
+                this.checkFourInRow(playerBoard, 1, -1, 0) ||
+                this.checkFourInRow(playerBoard, 1, 0, 1) ||
+                this.checkFourInRow(playerBoard, 1, 0, -1) ||
+                this.checkFourInRow(playerBoard, 0, 1, 1) ||
+                this.checkFourInRow(playerBoard, 0, 1, -1) ||
+                this.checkFourInRow(playerBoard, 1, 1, 1) ||
+                this.checkFourInRow(playerBoard, -1, 1, 1) ||
+                this.checkFourInRow(playerBoard, 1, -1, 1) ||
+                this.checkFourInRow(playerBoard, 1, 1, -1)) {
             return true;
         }
         return false;
     }
     
     /**
-    * Method takes three-dimensional array of integer that contains
+    * Method takes three-dimensional array of integers that contains
     * 1's and 0's indicating if a player has a piece in that slot.
     * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along x-axis.
+    * if player has four pieces in a row along the axis or diagonal
+    * specified by the parameters.
     *
     * @param    playerBoard     integer to be compared against
     *                           every slot in the board
+    * @param    x               integer between values -1 and 1
+    *                           indicating the direction of the row
+    *                           under inspection on the x-axis
+    * @param    y               integer between values -1 and 1
+    *                           indicating the direction of the row
+    *                           under inspection on the y-axis
+    * @param    z               integer between values -1 and 1
+    *                           indicating the direction of the row
+    *                           under inspection on the z-axis
     * 
     * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the x-axis
+    *           pieces in a row along the axis or diagonal specified
+    *           by the parameters
     */
-    public Boolean checkWinX(int[][][] playerBoard) {
+    public Boolean checkFourInRow(int[][][] playerBoard, int x, int y, int z) {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
                 for (int k = 0; k < this.length; k++) {
-                    if (i < this.width - 3) {
+                    try {
                         if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i + 1][j][k] == 1 &&
-                                playerBoard[i + 2][j][k] == 1 &&
-                                playerBoard[i + 3][j][k] == 1) {
+                                playerBoard[i + x][j + y][k + z] == 1 &&
+                                playerBoard[i + x * 2][j + y * 2][k + z * 2] == 1 &&
+                                playerBoard[i + x * 3][j + y * 3][k + z * 3] == 1) {
                             return true;
                         }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along y-axis.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the y-axis
-    */
-    public Boolean checkWinY(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (j < this.height - 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i][j + 1][k] == 1 &&
-                                playerBoard[i][j + 2][k] == 1 &&
-                                playerBoard[i][j + 3][k] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along z-axis.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the z-axis
-    */
-    public Boolean checkWinZ(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (k < this.length - 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i][j][k + 1] == 1 &&
-                                playerBoard[i][j][k + 2] == 1 &&
-                                playerBoard[i][j][k + 3] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * both x and y increases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinXY1(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (i < this.width - 3 && j < this.height - 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i + 1][j + 1][k] == 1 &&
-                                playerBoard[i + 2][j + 2][k] == 1 &&
-                                playerBoard[i + 3][j + 3][k] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * x increases and y decreases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinXY2(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (i < this.width - 3 && j >= 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i + 1][j - 1][k] == 1 &&
-                                playerBoard[i + 2][j - 2][k] == 1 &&
-                                playerBoard[i + 3][j - 3][k] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * both x and z increases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinXZ1(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (i < this.width - 3 && k < this.length - 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i + 1][j][k + 1] == 1 &&
-                                playerBoard[i + 2][j][k + 2] == 1 &&
-                                playerBoard[i + 3][j][k + 3] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * x increases and z decreases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinXZ2(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (i < this.width - 3 && k >= 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i + 1][j][k - 1] == 1 &&
-                                playerBoard[i + 2][j][k - 2] == 1 &&
-                                playerBoard[i + 3][j][k - 3] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * both y and z increases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinYZ1(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (j < this.height - 3 && k < this.length - 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i][j + 1][k + 1] == 1 &&
-                                playerBoard[i][j + 2][k + 2] == 1 &&
-                                playerBoard[i][j + 3][k + 3] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * y increases and z decreases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinYZ2(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (j < this.height - 3 && k >= 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i][j + 1][k - 1] == 1 &&
-                                playerBoard[i][j + 2][k - 2] == 1 &&
-                                playerBoard[i][j + 3][k - 3] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * all x, y and z increase.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinXYZ1(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (i < this.width - 3 && j < this.height - 3 && k < this.length - 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i + 1][j + 1][k + 1] == 1 &&
-                                playerBoard[i + 2][j + 2][k + 2] == 1 &&
-                                playerBoard[i + 3][j + 3][k + 3] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * y and z increase but x decreases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinXYZ2(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (i >= 3 && j < this.height - 3 && k < this.length - 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i - 1][j + 1][k + 1] == 1 &&
-                                playerBoard[i - 2][j + 2][k + 2] == 1 &&
-                                playerBoard[i - 3][j + 3][k + 3] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * x and z increase but y decreases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinXYZ3(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (i < this.width - 3 && j >= 3 && k < this.length - 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i + 1][j - 1][k + 1] == 1 &&
-                                playerBoard[i + 2][j - 2][k + 2] == 1 &&
-                                playerBoard[i + 3][j - 3][k + 3] == 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-    * Method takes three-dimensional array of integer that contains
-    * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
-    * if player has four pieces in a row along the diagonal where
-    * x and y increase but z decreases.
-    *
-    * @param    playerBoard     integer to be compared against
-    *                           every slot in the board
-    * 
-    * @return   boolean value indicating whether the player has four
-    *           pieces in a row along the diagonal
-    */
-    public Boolean checkWinXYZ4(int[][][] playerBoard) {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                for (int k = 0; k < this.length; k++) {
-                    if (i < this.width - 3 && j < this.height - 3 && k >= 3) {
-                        if (playerBoard[i][j][k] == 1 &&
-                                playerBoard[i + 1][j + 1][k - 1] == 1 &&
-                                playerBoard[i + 2][j + 2][k - 2] == 1 &&
-                                playerBoard[i + 3][j + 3][k - 3] == 1) {
-                            return true;
-                        }
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        continue;
                     }
                 }
             }

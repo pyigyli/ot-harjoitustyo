@@ -39,7 +39,7 @@ public class App extends Application {
     @Override
     public void start(Stage window) throws ClassNotFoundException {
         
-        Database database = new Database("jdbc:sqlite:db/Scores.db");
+        Database database = new Database("jdbc:sqlite:Scores.db");
         ScoreDao scoreDao = new ScoreDao(database);
         
     // Window settings

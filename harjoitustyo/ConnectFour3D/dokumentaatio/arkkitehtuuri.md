@@ -35,7 +35,7 @@ Pelilaudan piirtäminen perustuu matriisien käyttöön. Koska pelilauta on kolm
 
 ## Pelilogiikka
 
-Pelilogiikassa on toteutettu kaikki vaadittavat metodit, jotka mahdollistavat pelin pelaamisen. Pelilogiikan metodeja on yritetty pitää mahdollisimman lyhyinä ja selkeinä, mikä vaatii pientä ylimääräistä työtä sovelluksen pääluokalta, joka metodeja kutsuu, mutta kaikki pelilogiikan työ tehdään kuitenkin täysin pelilogiikan omassa luokassa. Koodia on pyritty myös uudelleenkäyttämään mahdollisimman paljon, joten pelaajasta riippumatta kaikki käyttävät samoja metodeita omien nappuloidensa tarkistamiseen.
+Pelilogiikassa on toteutettu kaikki vaadittavat metodit, jotka mahdollistavat pelin pelaamisen. Pelilogiikan metodeja on yritetty pitää mahdollisimman lyhyinä ja selkeinä, mikä vaatii pientä ylimääräistä työtä sovelluksen pääluokalta, joka näitä metodeja kutsuu, mutta kaikki pelilogiikkaan liittyvä tehdään kuitenkin täysin pelilogiikan omassa luokassa. Koodia on pyritty myös uudelleenkäyttämään mahdollisimman paljon, joten pelaajasta riippumatta kaikki käyttävät samoja metodeita omien nappuloidensa tarkistamiseen.
 
 ## Pelitulosten pysyväistallennus
 
@@ -59,25 +59,10 @@ Esitetään seuraavaksi sekvenssikaavio, jossa kuvataan 3 pelaajan pelin päätt
 
 ## Ohjelman rakenteeseen jääneet heikkoudet
 
-### Pelilogiikka
+### Grafiikan päivittäminen
 
-Pelin luonteesta johtuen, joudumme käymään läpi liki saman toimenpiteen 13 kertaa läpi. Kyseessä on siis se, että joudumme joka siirron jälkeen käymään kaikki pelilaudan ruudut läpi ja tarkistamaan jokaisen suoran ja diagonaalin suhteen, onko pelaaja saanut neljä omaa nappulaansa suoraan. Tästä seuraa valinta, haluammeko yhden todella pitkän metodin, joka sisältää kaikki nämä suorien ja diagonaalien tarkistukset, vai haluammeko jakaa ne useaan metodiin, joista jokainen näyttää lähes samalta. Menin itse jälkimmäisellä valinnalla, mutta koodi näyttää tällöin hyvin paljon vain copy-paste metodilla toteutetulta. Jokainen suoran ja diagonaalin tarkastus näyttää likimain samalta metodilta, mutta ratkaisut tämän välttämiseksi sisältävät muita ongelmia. Tässä esimerkkinä x-akselin suuntaisen suorien tarkastamisesta vastaava metodi.
-```java
-public Boolean checkWinX(int[][][] playerBoard) {
-    for (int i = 0; i < this.width; i++) {
-        for (int j = 0; j < this.height; j++) {
-            for (int k = 0; k < this.length; k++) {
-                if (i < this.width - 3) {
-                    if (playerBoard[i][j][k] == 1 &&
-                            playerBoard[i + 1][j][k] == 1 &&
-                            playerBoard[i + 2][j][k] == 1 &&
-                            playerBoard[i + 3][j][k] == 1) {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-```
+Pelilaudan piirtämisestä vastaava metodi on pitkä ja mahdollisesti vaikea ymmärtää. Se on kuitenkin osa käyttöliittymää ja tekee tehtävänsä, eikä lopullisesta versiosta ole löytynyt bugeja.
+
+### Tulosnäkymä generoidussa jar-tiedostossa
+
+Jos sovelluksen käyttämä Scores.db tietokantatiedosto tai sen sisältämät tietokantataulut puuttuvat, sovellus näyttää pelitulosten näkymässä virheviestin ja samalla korjaa automaattisesti ongelman, jotta virheviesti lakkaa ja ohjelma toimii taas toivotulla tavalla. Kun käyttäjä generoi uuden jar-tiedoston, Scores.db tiedostoa ei luoda automaattisesti, joten pelituloksia ei tallenneta, ennen kuin käyttäjä on vieraillut tulosnäkymässä ja nähnyt virheviestin.

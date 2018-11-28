@@ -10,7 +10,14 @@ Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä 
 
 [Arkkiitehtuurikuvaus](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/arkkitehtuuri.md)
 
+
+## Releaset
+
+[Viikko 5]()
+
 ## Komentorivitoiminnot
+
+Komentorivitoiminnot suoritetaan kansiossa _ConnectFour3D_.
 
 ### Testaus
 
