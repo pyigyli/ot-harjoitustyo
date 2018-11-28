@@ -16,4 +16,5 @@
 | 21.11. | 2    | - Pelilogiikkaa optimoitu poistamalla copy-paste -koodia.<br> - Kaikki diagonaaliset suorat lasketaan voittoisiksi.<br> - Checkstyle otettu käyttöön. |
 | 23.11. | 5    | - Javadocs toteutettu.<br> - Checkstyle toteutettu.<br> Dokumentointia edistetty. |
 | 24.11. | 4    | - Arkkitehtuurikuvaus toteutettu.<br> - Käyttöliittymän kaikki elementit toteutettu. |
-| Yhteensä | 52    |
+| 28.11. | 3    | - Toistuvaa koodia vähennetty.<br> - Release luotu.<br> - Dokumentaatio nykyisten vaatimusten mukainen |
+| Yhteensä | 55    |
