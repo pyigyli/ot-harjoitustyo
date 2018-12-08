@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
@@ -169,7 +168,7 @@ public class App extends Application {
         gameplayButtons.setMaxWidth(300);
         gameplayButtons.setAlignment(Pos.CENTER);
         // Canvas
-        GameCanvas canvas = new GameCanvas(game.getPlayers());
+        GameCanvas canvas = new GameCanvas();
         HBox canvasNode = new HBox();
         canvasNode.getChildren().add(canvas.getCanvas());
         canvasNode.setPadding(new Insets(50, 0, 0, 60));
@@ -358,13 +357,22 @@ public class App extends Application {
             selectX.setMax(game.getWidth());
             selectZ.setMax(game.getLength());
             window.setScene(gameplayView);
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            // Default scale for the board differs for different board sizes
+            int longest = game.getWidth();
+            if (game.getHeight() > game.getWidth() && game.getHeight() > game.getLength()) {
+                longest = game.getHeight();
+            } else if (game.getLength() > game.getWidth()) {
+                longest = game.getLength();
+            }
+            canvas.setScale(1800 - (120 * longest));
             canvas.setOffsetX(canvas.getScreenWidth() / 2);
             canvas.setOffsetY(canvas.getScreenHeight() / 2);
-            canvas.rotateX(matrix, canvas.getAngleX() * -1);
-            canvas.rotateY(matrix, canvas.getAngleY() * -1);
-            canvas.rotateZ(matrix, canvas.getAngleZ() * -1);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, canvas.getAngleX() * -1, "X");
+            canvas.rotate(matrix3D, canvas.getAngleY() * -1, "Y");
+            canvas.rotate(matrix3D, canvas.getAngleZ() * -1, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         
         // Open settings menu
@@ -424,127 +432,144 @@ public class App extends Application {
     // Gameplay interface actions
         // Camera controls
         resetCamera.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            canvas.setScale(650);
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            // Default scale for the board differs for different board sizes
+            int longest = game.getWidth();
+            if (game.getHeight() > game.getWidth()) {
+                longest = game.getHeight();
+            }
+            if (game.getLength() > game.getWidth() && game.getLength() > game.getHeight()) {
+                longest = game.getLength();
+            }
+            canvas.setScale(1800 - (120 * longest));
             canvas.setOffsetX(canvas.getScreenWidth() / 2);
             canvas.setOffsetY(canvas.getScreenHeight() / 2);
-            canvas.rotateX(matrix, canvas.getAngleX() * -1);
-            canvas.rotateY(matrix, canvas.getAngleY() * -1);
-            canvas.rotateZ(matrix, canvas.getAngleZ() * -1);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, canvas.getAngleX() * -1, "X");
+            canvas.rotate(matrix3D, canvas.getAngleY() * -1, "Y");
+            canvas.rotate(matrix3D, canvas.getAngleZ() * -1, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         xUp.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            canvas.rotateX(matrix, 0.1);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0.1, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         xDown.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            canvas.rotateX(matrix, -0.1);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, -0.1, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         yUp.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0.1);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0.1, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         yDown.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, -0.1);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, -0.1, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         zUp.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0.1);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0.1, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         zDown.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, -0.1);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, -0.1, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         moveUp.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.changeOffsetY(-10);
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         moveDown.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.changeOffsetY(10);
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         moveRight.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.changeOffsetX(10);
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         moveLeft.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.changeOffsetX(-10);
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         zoomIn.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.changeScale(10);
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         zoomOut.setOnAction((event) -> {
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
             canvas.changeScale(-10);
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         // Player input
-        selectX.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                canvas.setSelectX(newValue.intValue() - 1);
-                Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-                canvas.rotateX(matrix, 0);
-                canvas.rotateY(matrix, 0);
-                canvas.rotateZ(matrix, 0);
-                canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
-            }
+        selectX.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            canvas.setSelectX(newValue.intValue() - 1);
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
-        selectZ.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                canvas.setSelectZ(newValue.intValue() - 1);
-                Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-                canvas.rotateX(matrix, 0);
-                canvas.rotateY(matrix, 0);
-                canvas.rotateZ(matrix, 0);
-                canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
-            }
+        selectZ.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            canvas.setSelectZ(newValue.intValue() - 1);
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
         placePiece.setOnAction((event) -> {
             if (game.placePiece((int) selectX.getValue() - 1, (int) selectZ.getValue() - 1, game.getBoard())) {
@@ -576,23 +601,29 @@ public class App extends Application {
                     } catch (SQLException ex) {}
                 }
                 playerTurnLabel.setText("Your turn,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
-                if (game.getTurn() % game.getPlayers() == 0) {
-                    playerTurnLabel.setTextFill(new Color(0.6, 0, 0, 1));
-                } else if (game.getTurn() % game.getPlayers() == 1) {
-                    playerTurnLabel.setTextFill(new Color(0, 0.6, 0, 1));
-                } else if (game.getTurn() % game.getPlayers() == 2) {
-                    playerTurnLabel.setTextFill(new Color(0, 0, 0.6, 1));
-                } else {
-                    playerTurnLabel.setTextFill(new Color(0.6, 0.6, 0, 1));
+                switch (game.getTurn() % game.getPlayers()) {
+                    case 0:
+                        playerTurnLabel.setTextFill(new Color(0.6, 0, 0, 1));
+                        break;
+                    case 1:
+                        playerTurnLabel.setTextFill(new Color(0, 0.6, 0, 1));
+                        break;
+                    case 2:
+                        playerTurnLabel.setTextFill(new Color(0, 0, 0.6, 1));
+                        break;
+                    default:
+                        playerTurnLabel.setTextFill(new Color(0.6, 0.6, 0, 1));
+                        break;
                 }
             } else {
                 playerTurnLabel.setText("Column full,\n" + players.get(game.getTurn() % game.getPlayers()).getName());
             }
-            Matrix matrix = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
-            canvas.rotateX(matrix, 0);
-            canvas.rotateY(matrix, 0);
-            canvas.rotateZ(matrix, 0);
-            canvas.updateFrame(matrix, game.getWidth(), game.getHeight(), game.getLength());
+            Matrix matrix3D = canvas.boardToMatrix(game.getBoard(), game.getWidth(), game.getHeight(), game.getLength());
+            canvas.rotate(matrix3D, 0, "X");
+            canvas.rotate(matrix3D, 0, "Y");
+            canvas.rotate(matrix3D, 0, "Z");
+            Matrix matrix2D = canvas.projection(matrix3D, game.getWidth(), game.getHeight(), game.getLength());
+            canvas.drawBoard(matrix2D, game.getWidth(), game.getHeight(), game.getLength());
         });
     
     // Settings interface actions
@@ -642,31 +673,28 @@ public class App extends Application {
             }
         });
         // Set board sizes
-        changeLengthSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                game.setLength(newValue.intValue());
-            }
+        changeLengthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            game.setLength(newValue.intValue());
         });
-        changeWidthSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                game.setWidth(newValue.intValue());
-            }
+        changeWidthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            game.setWidth(newValue.intValue());
         });
-        changeHeightSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                game.setHeight(newValue.intValue());
-            }
+        changeHeightSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            game.setHeight(newValue.intValue());
         });
         // Set the number of players
-        changePlayerNumberChoicebox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                game.setPlayers(newValue.intValue() + 2);
-            }
+        changePlayerNumberChoicebox.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            game.setPlayers(newValue.intValue() + 2);
         });
+        
+        // Attempt an SQL-command so if it fails, the database will be fixed.
+        try {
+            scoreDao.findAll();
+        } catch (SQLException ex) {
+            try {
+                scoreDao.initialize();
+            } catch (SQLException ex1) {}
+        }
         
         window.setScene(welcomeScene);
         window.setTitle("Connect Four 3D");

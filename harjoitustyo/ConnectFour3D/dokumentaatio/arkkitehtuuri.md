@@ -59,10 +59,6 @@ Esitetään seuraavaksi sekvenssikaavio, jossa kuvataan 3 pelaajan pelin päätt
 
 ## Ohjelman rakenteeseen jääneet heikkoudet
 
-### Grafiikan päivittäminen
+### Luokkien pituudet
 
-Pelilaudan piirtämisestä vastaava metodi on pitkä ja mahdollisesti vaikea ymmärtää. Se on kuitenkin osa käyttöliittymää ja tekee tehtävänsä, eikä lopullisesta versiosta ole löytynyt bugeja.
-
-### Tulosnäkymä generoidussa jar-tiedostossa
-
-Jos sovelluksen käyttämä Scores.db tietokantatiedosto tai sen sisältämät tietokantataulut puuttuvat, sovellus näyttää pelitulosten näkymässä virheviestin ja samalla korjaa automaattisesti ongelman, jotta virheviesti lakkaa ja ohjelma toimii taas toivotulla tavalla. Kun käyttäjä generoi uuden jar-tiedoston, Scores.db tiedostoa ei luoda automaattisesti, joten pelituloksia ei tallenneta, ennen kuin käyttäjä on vieraillut tulosnäkymässä ja nähnyt virheviestin.
+Luokat App, Canvas ja Gamelogic ovat pitkiä. Kurssin edetessä Canvas ja Gamelogic ovat onneksi lyhentyneet huimasti. Tämä tekee niistä ehkä monimutkaisempia seurata, mutta useita metodeja on onnistuttu kokoamaan yhteen siten, että muutamia eroavaisuuksia samankaltaisten metodien välillä voidaan muuttaa parametrien avulla. Tätä ei kuitenkaan voi toteuttaa App-luokalle, joka lepää yli 700 rivin pituudessa.

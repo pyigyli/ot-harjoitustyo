@@ -18,4 +18,5 @@
 | 24.11. | 4    | - Arkkitehtuurikuvaus toteutettu.<br> - Käyttöliittymän kaikki elementit toteutettu. |
 | 28.11. | 3    | - Toistuvaa koodia vähennetty.<br> - Release luotu.<br> - Dokumentaatio nykyisten vaatimusten mukainen |
 | 3.12.  | 1    | - Sekvenssikaaviot ja dokumentaatio päivitetty vastaamaan sovelluksen muutoksia. |
-| Yhteensä | 58    |
+| 8.12.  | 5    | - Dokumentointia edistetty.<br> - Käyttöohjeet luotu.<br> - Koodin toistuvuutta vähennetty. |
+| Yhteensä | 63    |

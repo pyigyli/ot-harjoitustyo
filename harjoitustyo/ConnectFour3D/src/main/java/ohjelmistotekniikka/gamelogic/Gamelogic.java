@@ -111,7 +111,7 @@ public class Gamelogic {
     *           the game or not
     */
     public Boolean checkWin(int[][][] playerBoard) {
-        if (this.checkFourInRow(playerBoard, 1, 0, 0) ||
+        return this.checkFourInRow(playerBoard, 1, 0, 0) ||
                 this.checkFourInRow(playerBoard, 0, 1, 0) ||
                 this.checkFourInRow(playerBoard, 0, 0, 1) ||
                 this.checkFourInRow(playerBoard, 1, 1, 0) ||
@@ -123,10 +123,7 @@ public class Gamelogic {
                 this.checkFourInRow(playerBoard, 1, 1, 1) ||
                 this.checkFourInRow(playerBoard, -1, 1, 1) ||
                 this.checkFourInRow(playerBoard, 1, -1, 1) ||
-                this.checkFourInRow(playerBoard, 1, 1, -1)) {
-            return true;
-        }
-        return false;
+                this.checkFourInRow(playerBoard, 1, 1, -1);
     }
     
     /**
@@ -164,7 +161,7 @@ public class Gamelogic {
                             return true;
                         }
                     } catch (ArrayIndexOutOfBoundsException ex) {
-                        continue;
+                        // Do nothing when outside of the array
                     }
                 }
             }
