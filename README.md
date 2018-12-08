@@ -4,6 +4,8 @@ Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä 
 
 ## Dokumentaatio
 
+[Käyttöohje](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/kayttoohje.md)
+
 [Vaatimusmäärittely](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/vaatimusmaarittelu.md)
 
 [Työaikakirjanpito](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/tuntikirjanpito.md)
@@ -14,6 +16,8 @@ Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä 
 ## Releaset
 
 [Viikko 5](https://github.com/pyigyli/ot-harjoitustyo/releases/tag/viikko5)
+
+[Viikko 6](https://github.com/pyigyli/ot-harjoitustyo/releases/tag/viikko6)
 
 ## Komentorivitoiminnot
 
