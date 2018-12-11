@@ -2,7 +2,7 @@
 package ohjelmistotekniikka.gamelogic;
 
 /**
- * Class provides the gamelogic for three-dimensional connect four.
+ * Class provides the game logic for three-dimensional connect four.
  */
 public class Gamelogic {
     
@@ -15,7 +15,7 @@ public class Gamelogic {
     private int[][][] board;
     
     /**
-    * Method initializes the gamelogic with default settings.
+    * Method initializes the game logic with default settings.
     */
     public Gamelogic() {
         this.players = 2;
@@ -101,7 +101,7 @@ public class Gamelogic {
     /**
     * Method takes three-dimensional array of integers that contains
     * 1's and 0's indicating if a player has a piece in that slot.
-    * The method goes through every row and diagonal and return true
+    * The method goes through every row and diagonal and returns true
     * if playerBoard has four in a row in any row or diagonal.
     *
     * @param    playerBoard     integer to be compared against
@@ -129,7 +129,7 @@ public class Gamelogic {
     /**
     * Method takes three-dimensional array of integers that contains
     * 1's and 0's indicating if a player has a piece in that slot.
-    * The method inspects every slot in the board and return true
+    * The method inspects every slot in the board and returns true
     * if player has four pieces in a row along the axis or diagonal
     * specified by the parameters.
     *
@@ -171,10 +171,10 @@ public class Gamelogic {
     
     /**
     * Method returns three-dimensional array that represents the
-    * game's board.
+    * game board.
     * 
     * @return   three-dimensional array that represents the
-    *           game's board
+    *           game board
     */
     public int[][][] getBoard() {
         return this.board;
@@ -226,7 +226,7 @@ public class Gamelogic {
     
     /**
     * Method sets the width of the three-dimensional array that
-    * represents the game's board.
+    * represents the game board.
     * 
     * @param    width   the width of the array
     */
@@ -238,7 +238,7 @@ public class Gamelogic {
     /**
     * Method returns the width of the board.
     * 
-    * @return   integer indicating the width of the game's board
+    * @return   integer indicating the width of the game board
     */
     public int getWidth() {
         return this.width;
@@ -246,7 +246,7 @@ public class Gamelogic {
     
     /**
     * Method sets the height of the three-dimensional array that
-    * represents the game's board.
+    * represents the game board.
     * 
     * @param    height  the height of the array
     */
@@ -258,7 +258,7 @@ public class Gamelogic {
     /**
     * Method returns the height of the board.
     * 
-    * @return   integer indicating the height of the game's board
+    * @return   integer indicating the height of the game board
     */
     public int getHeight() {
         return this.height;
@@ -278,7 +278,7 @@ public class Gamelogic {
     /**
     * Method returns the length of the board.
     * 
-    * @return   integer indicating the length of the game's board
+    * @return   integer indicating the length of the game board
     */
     public int getLength() {
         return this.length;
@@ -286,7 +286,7 @@ public class Gamelogic {
     
     /**
     * Method sets an integer value into a slot on a
-    * three-dimensional array that represents the game's board.
+    * three-dimensional array that represents the game board.
     * 
     * @param    i       the x-coordinate of the array
     * @param    j       the y-coordinate of the array
@@ -299,7 +299,7 @@ public class Gamelogic {
     
     /**
     * Method returns the integer in the slot of the 
-    * three-dimensionl array that represents the game's board.
+    * three-dimensional array that represents the game board.
     * 
     * @param    i       the x-coordinate of the array
     * @param    j       the y-coordinate of the array
