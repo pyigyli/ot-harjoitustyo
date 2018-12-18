@@ -31,16 +31,20 @@ Komentorivin komennot suoritetaan kansiossa *ConnectFour3D*.
 
 Testit suoritetaan komennolla `mvn test`.
 
-Testikattavuusraportti luodaan komennolla `mvn jacoco:report`. Testikattavuusraporttia voi tarkastella avaamalla selaimella tiedosto *target/site/jacoco/index.html*.
+Testikattavuusraportti luodaan komennolla `mvn jacoco:report`.
+Testikattavuusraporttia voi tarkastella avaamalla selaimella tiedosto *target/site/jacoco/index.html*.
 
 ### Suoritettava jar-tiedosto
 
-Suoritettavan jar-tiedoston voi luoda komennolla `mvn package`. Luodun tiedoston polku on *target/ConnectFour3D-1.0-SNAPSHOT.jar*.
+Suoritettavan jar-tiedoston voi luoda komennolla `mvn package`.
+Luodun tiedoston polku on *target/ConnectFour3D-1.0-SNAPSHOT.jar*.
 
 ### JavaDoc
 
-JavaDoc generoidaan komennolla `mvn javadoc:javadoc`. JavaDocia voi tarkastella avaamalla tiedosto *target/site/apidocs/index.html*.
+JavaDoc generoidaan komennolla `mvn javadoc:javadoc`.
+JavaDocia voi tarkastella avaamalla tiedosto *target/site/apidocs/index.html*.
 
 ### Checkstyle
 
-Tiedostoon [checkstyle.xml](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla `mvn jxr:jxr checkstyle:checkstyle`. Määriteltyjen tarkistusten rikkeet ovat tarkasteltavissa avaamalla tiedosto *target/site/checkstyle.html*.
+Tiedostoon [checkstyle.xml](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla `mvn jxr:jxr checkstyle:checkstyle`.
+Määriteltyjen tarkistusten rikkeet ovat tarkasteltavissa avaamalla tiedosto *target/site/checkstyle.html*.

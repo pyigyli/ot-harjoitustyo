@@ -19,4 +19,5 @@
 | 28.11. | 3    | - Toistuvaa koodia vähennetty.<br> - Release luotu.<br> - Dokumentaatio nykyisten vaatimusten mukainen |
 | 3.12.  | 1    | - Sekvenssikaaviot ja dokumentaatio päivitetty vastaamaan sovelluksen muutoksia. |
 | 8.12.  | 5    | - Dokumentointia edistetty.<br> - Käyttöohjeet luotu.<br> - Koodin toistuvuutta vähennetty. |
-| Yhteensä | 63    |
+| 18.12. | 5    | - Testejä lisätty.<br> - Testausdokumentti luotu.<br> - Lopullinen release luotu.<br> - Sovelluksen ja sen dokumentaatio käyty läpi. Sovelluksen lopullinen versio valmis. |
+| Yhteensä | 68    |
