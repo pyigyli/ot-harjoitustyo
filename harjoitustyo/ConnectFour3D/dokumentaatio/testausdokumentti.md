@@ -8,7 +8,7 @@ Pelilaudan visuaalisesta esityksestä vastaavalle luokalle ei ole kirjoitettu yh
 
 ### Sovelluslogiikka
 
-Sovelluslogiikalle on luotu automaattisia JUnit testejä, jotka kattavat kaiken, mitä luokasta löytää. Myös pelilogiikka on saanut suuren määrän manuaalista testaamista. Sovelluslogiikan testeissä on keskitytty tarkistamaan, että sovelluksen logiikka seuraa pelin sääntöjä.
+Sovelluslogiikalle on luotu automaattisia JUnit testejä, jotka kattavat koko luokan. Myös pelilogiikka on saanut suuren määrän manuaalista testaamista. Sovelluslogiikan testeissä on keskitytty tarkistamaan, että sovelluksen logiikka seuraa pelin sääntöjä.
 
 ### Tietokanta ja DAO-luokka
 
