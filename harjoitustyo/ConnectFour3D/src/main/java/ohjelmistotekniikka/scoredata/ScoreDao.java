@@ -59,11 +59,6 @@ public class ScoreDao implements Dao<Score, Integer> {
     }
 
     @Override
-    public Score findOne(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void save(Score s) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Score(player1, player2, player3, player4, winner) VALUES(?,?,?,?,?);");
@@ -78,12 +73,17 @@ public class ScoreDao implements Dao<Score, Integer> {
     }
 
     @Override
+    public Score findOne(Integer key) throws SQLException {
+        throw new UnsupportedOperationException("Not supported.");
+    }
+
+    @Override
     public void update(Score object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported.");
     }
 
     @Override
     public void delete(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported.");
     }
 }

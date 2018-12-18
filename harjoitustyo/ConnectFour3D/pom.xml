@@ -38,7 +38,8 @@
                 <configuration>
                     <excludes>
                         <exclude>ohjelmistotekniikka/application/**/*</exclude>
-                        <exclude>ohjelmistotekniikka/scoredata/**/*</exclude>
+                        <exclude>ohjelmistotekniikka/scoredata/Dao.java</exclude>
+                        <exclude>ohjelmistotekniikka/scoredata/Database.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>
