@@ -25,9 +25,9 @@ Käyttöliittymä koostuu neljästä eri näkymästä:
     <img src="https://raw.githubusercontent.com/pyigyli/ot-harjoitustyo/master/harjoitustyo/ConnectFour3D/dokumentaatio/kuvat/kayttoliittyma_saantonakyma.png" width="430">
 </p>
 
-jokainen näistä on toteutettu omana Scene-oliona. Näkymistä yksi kerrallaan on näkyvänä eli sijoitettuna sovelluksen stageen. Kaikissa näkymissä yksi yhteinen elementti on ikkunan yläosassa näkyvä valikko, jota käyttämällä näkymiä voi vaihtaa.
+Jokainen näkymä on erillinen Scene-olio. Kaikissa näkymissä yksi yhteinen elementti on ikkunan yläosassa näkyvä valikko, jota käyttämällä näkymiä voi vaihtaa.
 
-Käyttöliittymä on pyritty eristämään täysin sovelluslogiikasta. Käyttöliittymästä on myös eristetty luokka, joka yksin vastaa pelilaudan visuaalisesta esityksestä.
+Käyttöliittymä ja sovelluslogiikka on pyritty pitämään erillään. Käyttöliittymästä on myös eristetty luokka, joka yksin vastaa pelilaudan visuaalisesta esityksestä.
 
 ## Grafiikka
 
@@ -39,9 +39,7 @@ Pelilogiikassa on toteutettu kaikki vaadittavat metodit, jotka mahdollistavat pe
 
 ## Pelitulosten pysyväistallennus
 
-Pelitulosten tallentamiseen ja niiden hakemiseen on käytetty paikallista SQL-tietokantaa. Käyttäjän on täysin mahdollista poistaa kyseinen tiedosto laitteeltaan, jolloin tietokannan puuttumisesta johtuva virheviesti tulee näkyviin pelitulosten näkymässä ja virheviestin yhteydessä tietokantataulut luodaan uudellee, jolloin tulosten tallentaminen on jälleen mahdollista.
-
-Luokat noudattavat Data Access Object -suunnittelumallia ja ne on tarvittaessa mahdollista korvata uusilla toteutuksilla, jos sovelluksen datan talletustapaa päätetään vaihtaa. Luokka on eristetty rajapinnan _ScoreDao_ taakse.
+Pelitulosten tallentamiseen ja niiden hakemiseen on käytetty paikallista SQL-tietokantaa. Tietokantaa käyttävä luokka *ScoreDao* noudattaa Data Access Object -suunnittelumallia. Käyttäjän on täysin mahdollista poistaa tietokantataulun sisältävä tiedosto *Scores.db* laitteeltaan. Sovelluksen käynnistämisen yhteydessä tiedoston puuttuminen johtaa sen uudelleenluomiseen ja tiedoston poistaminen sovelluksen avaamisen jälkeen johtaa pelitulosten näkymässä käyttäjäystävälliseen virheviestiin. Virheviestin yhteydessä tiedosto ja tietokantataulu luodaan uudelleen, jolloin tulosten tallentaminen on jälleen mahdollista.
 
 ## Päätoiminnallisuudet
 

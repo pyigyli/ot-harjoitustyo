@@ -1,6 +1,6 @@
 # Connect Four 3D
 
-Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä muilla pienillä variaatioilla. Sopii hupikäyttöön 2-4 pelaajalle.
+Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja muilla pienillä variaatioilla, kuten mahdollisuudella muuttaa pelilaudan pituuksia ja pelaajien lukumäärää. Sopii hupikäyttöön 2-4 pelaajalle.
 
 ## Dokumentaatio
 
@@ -8,9 +8,11 @@ Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä 
 
 [Vaatimusmäärittely](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/vaatimusmaarittelu.md)
 
-[Työaikakirjanpito](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/tuntikirjanpito.md)
-
 [Arkkiitehtuurikuvaus](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/arkkitehtuuri.md)
+
+[Testausdokumentti](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/testausdokumentti.md)
+
+[Työaikakirjanpito](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/dokumentaatio/tuntikirjanpito.md)
 
 
 ## Releaset
@@ -19,52 +21,26 @@ Klassinen peli, neljän suora, toteutettuna kolmiulotteisessa muodossa ja ehkä 
 
 [Viikko 6](https://github.com/pyigyli/ot-harjoitustyo/releases/tag/viikko6)
 
+[Loppupalautus](https://github.com/pyigyli/ot-harjoitustyo/releases/tag/loppupalautus)
+
 ## Komentorivitoiminnot
 
-Komentorivitoiminnot suoritetaan kansiossa _ConnectFour3D_.
+Komentorivin komennot suoritetaan kansiossa *ConnectFour3D*.
 
-### Testaus
+### Testit
 
-Testit suoritetaan komennolla
+Testit suoritetaan komennolla `mvn test`.
 
-```
-mvn test
-```
+Testikattavuusraportti luodaan komennolla `mvn jacoco:report`. Testikattavuusraporttia voi tarkastella avaamalla selaimella tiedosto *target/site/jacoco/index.html*.
 
-Testikattavuusraportti luodaan komennolla
+### Suoritettava jar-tiedosto
 
-```
-mvn jacoco:report
-```
-
-Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
-
-### Suoritettavan jarin generointi
-
-Komento
-
-```
-mvn package
-```
-
-generoi hakemistoon _target_ suoritettavan jar-tiedoston _ConnectFour3D-1.0-SNAPSHOT.jar_
+Suoritettavan jar-tiedoston voi luoda komennolla `mvn package`. Luodun tiedoston polku on *target/ConnectFour3D-1.0-SNAPSHOT.jar*.
 
 ### JavaDoc
 
-JavaDoc generoidaan komennolla
-
-```
-mvn javadoc:javadoc
-```
-
-JavaDocia voi tarkastella avaamalla selaimella tiedosto _target/site/apidocs/index.html_
+JavaDoc generoidaan komennolla `mvn javadoc:javadoc`. JavaDocia voi tarkastella avaamalla tiedosto *target/site/apidocs/index.html*.
 
 ### Checkstyle
 
-Tiedostoon [checkstyle.xml](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla
-
-```
- mvn jxr:jxr checkstyle:checkstyle
-```
-
-Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
+Tiedostoon [checkstyle.xml](https://github.com/pyigyli/ot-harjoitustyo/blob/master/harjoitustyo/ConnectFour3D/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla `mvn jxr:jxr checkstyle:checkstyle`. Määriteltyjen tarkistusten rikkeet ovat tarkasteltavissa avaamalla tiedosto *target/site/checkstyle.html*.
