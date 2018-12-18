@@ -12,7 +12,7 @@ Sovelluslogiikalle on luotu automaattisia JUnit testejä, jotka kattavat koko lu
 
 ### Tietokanta ja DAO-luokka
 
-Tietokantaa käyttäviä luokkia testataan tilapäisellä luokalla, joka luodaan testien ajaksi ja poistetaan heti testien päätyttyä. Väliaikaisen tiedoston nimi on oletusarvoisesti *"TestScores0.db"*, mutta nimen numero voi muuttua, mikäli kansiossa on jo olemassa tämän niminen tiedosto. Tällä halutaan varmistaa, ettei testien ajaminen vahingossa poista käyttäjältä muita tiedostoja.
+Tietokantaa käyttäviä luokkia testataan tiedostolla, joka luodaan vain testien ajaksi ja poistetaan heti testien päätyttyä. Väliaikaisen tiedoston nimi on oletusarvoisesti *"TestScores0.db"*, mutta nimen numero voi muuttua, mikäli kansiossa on jo olemassa tämän niminen tiedosto. Tällä halutaan varmistaa, ettei testien ajaminen vahingossa poista käyttäjältä muita tiedostoja.
 
 ## Testikattavuus
 
